@@ -12,9 +12,11 @@ Este documento rastrea las tareas de modernización, rediseño y nuevas caracter
 - [x] **Integración de Foto**: Integrada `profile_ultimate.png` con estilo Clean-Tech, recortes precisos y efectos parallax activos.
 - [x] **Sección de Certificaciones**: Crear una sección nueva bajo Skills o Projects dedicada a mostrar medallas/certificados de IA o Cloud (AWS, GCP, etc.).
 
-## 🚀 Fase 3: Dinamismo en Proyectos
-- [ ] **Integrar Imágenes Reales**: Reemplazar los placeholders por las imágenes reales de los proyectos.
-- [ ] **Animaciones Scroll/Parallax**: Implementar efectos Parallax para que las imágenes de los proyectos se muevan conforme el usuario hace scroll.
+## 🚀 Fase 3: Dinamismo en Proyectos y Stack Técnico
+- [x] **Integrar Imágenes Reales**: Reemplazados los placeholders por imágenes reales con estilos de ajuste correctos (`object-cover`, `object-top`).
+- [x] **Animaciones Scroll/Parallax**: Implementado efecto Parallax en las imágenes de proyectos y corrección de cálculos de scroll en Framer Motion empleando posiciones relativas.
+- [x] **Refactorización de Proyectos**: Subdivisión entre "Proyectos Seleccionados" (mostrados) y "Más proyectos" (ocultos bajo un menú expandible animado). Actualizado el Copywriting para transmitir el impacto real en el negocio (ej. +400 leads).
+- [x] **Rediseño del Stack Tecnológico**: Transformación del antiguo grid a un sistema avanzado de Pestañas Dinámicas (Dynamic Tabs) con efectos de Glassmorphism y reorganización estratégica de las tecnologías reales dominadas (TurboRepo, NextAuth, OpenNext, n8n, etc.) con énfasis especial en "Automatización".
 
 ## 📧 Fase 4: Newsletter & Comunidad
 - [ ] **Sección de Suscripción**: Crear un bloque de "Newsletter" para captar correos.

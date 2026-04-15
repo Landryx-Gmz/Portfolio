@@ -17,8 +17,9 @@ Porfolio personal de Andy Gomez, "Full-Stack AI Developer".
    - **Proyectos:** JadixTech y otros proyectos.
    - **Contacto/Footer.**
 
-4. **Integración del Backend (FastAPI)**
-   - Endpoint `api/chat` para procesar mensajes del usuario simulando inteligencia artificial.
+4. **Integración del Backend e IA**
+   - Endpoint `api/chat` para procesar mensajes del usuario simulando inteligencia artificial usando Python.
+   - Refactorización del Stack Tecnológico, demostrando dominio en Clean Architecture, Monorepos (TurboRepo) y sistemas Automatizados enfocados a UX e infraestructura Cloud Edge.
 
 5. **Chatbot Inteligente en el Frontend**
    - Interfaz flotante de chat que interactúa con la API de Python.
