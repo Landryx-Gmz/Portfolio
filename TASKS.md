@@ -10,7 +10,7 @@ Este documento rastrea las tareas de modernización, rediseño y nuevas caracter
 
 ## 👤 Fase 2: Personalización y Autoridad
 - [x] **Integración de Foto**: Integrada `profile_ultimate.png` con estilo Clean-Tech, recortes precisos y efectos parallax activos.
-- [ ] **Sección de Certificaciones**: Crear una sección nueva bajo Skills o Projects dedicada a mostrar medallas/certificados de IA o Cloud (AWS, GCP, etc.).
+- [x] **Sección de Certificaciones**: Crear una sección nueva bajo Skills o Projects dedicada a mostrar medallas/certificados de IA o Cloud (AWS, GCP, etc.).
 
 ## 🚀 Fase 3: Dinamismo en Proyectos
 - [ ] **Integrar Imágenes Reales**: Reemplazar los placeholders por las imágenes reales de los proyectos.
