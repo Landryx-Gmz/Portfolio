@@ -1,18 +1,17 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ChevronRight, Terminal, ExternalLink, Github, Mail, Linkedin } from "lucide-react";
-
+import { useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { ChevronRight, Terminal, Github, Mail, Linkedin, ChevronUp, ChevronDown, User } from "lucide-react";
 import Image from "next/image";
 
 export function Hero() {
+  const [photo_visible, set_photo_visible] = useState(false);
   const { scrollY } = useScroll();
-  
+
   // Parallax effects
-  const photoY = useTransform(scrollY, [0, 300], [0, 50]);
-  const codeY = useTransform(scrollY, [0, 300], [0, -80]);
-  const codeOpacity = useTransform(scrollY, [0, 300], [1, 0.3]);
-  const photoScale = useTransform(scrollY, [0, 300], [1.2, 1.05]); // Base scale 1.2 to crop
+  const codeY = useTransform(scrollY, [0, 300], [0, -40]);
+  const codeOpacity = useTransform(scrollY, [0, 300], [1, 0.4]);
 
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
@@ -23,6 +22,7 @@ export function Hero() {
       <div className="container px-4 md:px-6 relative z-10">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-8 items-center">
 
+          {/* Left column — Text */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -82,46 +82,66 @@ export function Hero() {
             </div>
           </motion.div>
 
+          {/* Right column — Code block + toggleable photo */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="relative lg:ml-auto w-full max-w-lg mt-12 lg:mt-0"
+            className="relative lg:ml-auto w-full max-w-lg mt-12 lg:mt-0 flex flex-col gap-0"
           >
-            {/* Foto de Perfil */}
-            <motion.div 
-              style={{ y: photoY }}
-              className="relative w-full h-[320px] lg:h-[380px] rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(6,182,212,0.15)] group z-10"
-            >
-              <motion.div 
-                style={{ scale: photoScale }}
-                className="w-full h-full origin-center relative left-[-2%] top-[1%]"
-              >
-                <Image
-                  src="/profile_ultimate.png" 
-                  alt="Andy Gomez"
-                  fill
-                  className="object-cover transition-all duration-700 group-hover:scale-[1.02]"
-                />
-              </motion.div>
-              
-              {/* Degradado para dar profundidad inferior */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10 pointer-events-none"></div>
-            </motion.div>
+            {/* Photo — slides in above the code block */}
+            <AnimatePresence>
+              {photo_visible && (
+                <motion.div
+                  key="photo"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 320, opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ type: "spring", damping: 28, stiffness: 200 }}
+                  className="relative w-full overflow-hidden rounded-t-3xl border border-b-0 border-white/10 shadow-[0_0_50px_rgba(6,182,212,0.15)]"
+                >
+                  <Image
+                    src="/profile_ultimate.png"
+                    alt="Andy Gomez"
+                    fill
+                    className="object-cover"
+                  />
+                  {/* Degradado inferior para fundir con el bloque de código */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none z-10"></div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-            {/* Elemento gráfico representativo de código (Separado y flotando) */}
-            <motion.div 
+            {/* Code block */}
+            <motion.div
               style={{ y: codeY, opacity: codeOpacity }}
-              className="relative z-20 mt-6 lg:-mt-16 lg:-ml-12 lg:-mr-4 rounded-2xl overflow-hidden border border-white/10 bg-black/70 backdrop-blur-2xl shadow-2xl"
+              className={`relative z-20 rounded-2xl overflow-hidden border border-white/10 bg-black/70 backdrop-blur-2xl shadow-2xl ${photo_visible ? "rounded-t-none border-t-0" : ""}`}
             >
-              <div className="flex items-center px-4 py-3 border-b border-white/5 bg-white/5">
-                <div className="flex gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500/80 shadow-[0_0_10px_rgba(239,68,68,0.5)]"></div>
-                  <div className="w-3 h-3 rounded-full bg-yellow-500/80 shadow-[0_0_10px_rgba(234,179,8,0.5)]"></div>
-                  <div className="w-3 h-3 rounded-full bg-green-500/80 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
+              {/* Title bar — clickable */}
+              <button
+                onClick={() => set_photo_visible((v) => !v)}
+                className="w-full flex items-center justify-between px-4 py-3 border-b border-white/5 bg-white/5 hover:bg-white/10 transition-colors group cursor-pointer"
+                title={photo_visible ? "Ocultar foto" : "Ver al desarrollador"}
+              >
+                <div className="flex items-center gap-3">
+                  <div className="flex gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-500/80 shadow-[0_0_10px_rgba(239,68,68,0.5)]"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-500/80 shadow-[0_0_10px_rgba(234,179,8,0.5)]"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-500/80 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
+                  </div>
+                  <span className="text-xs font-mono text-neutral-400 group-hover:text-white transition-colors">andy_ai.py</span>
                 </div>
-                <div className="ml-4 text-xs font-mono text-neutral-400">andy_ai.py</div>
-              </div>
+                <div className="flex items-center gap-1.5 text-[10px] font-mono text-neutral-500 group-hover:text-cyan-400 transition-colors">
+                  <User className="w-3 h-3" />
+                  {photo_visible ? (
+                    <><ChevronUp className="w-3 h-3" /> ocultar</>
+                  ) : (
+                    <><ChevronDown className="w-3 h-3" /> ver desarrollador</>
+                  )}
+                </div>
+              </button>
+
+              {/* Code content */}
               <div className="p-5 font-mono text-xs sm:text-sm leading-relaxed text-neutral-300">
                 <p><span className="text-purple-400">class</span> <span className="text-cyan-400">Developer</span>:</p>
                 <p className="ml-4"><span className="text-purple-400">def</span> <span className="text-cyan-400">__init__</span>(<span className="text-orange-400">self</span>):</p>
