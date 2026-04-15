@@ -1,18 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, Terminal, Github, Mail, Linkedin, ChevronUp, ChevronDown, User } from "lucide-react";
 import Image from "next/image";
 
 export function Hero() {
   const [photo_visible, set_photo_visible] = useState(false);
-  const { scrollY } = useScroll();
-
-  // Parallax effects
-  const codeY = useTransform(scrollY, [0, 300], [0, -40]);
-  const codeOpacity = useTransform(scrollY, [0, 300], [1, 0.4]);
-
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Background Glow Effects */}
@@ -113,8 +107,7 @@ export function Hero() {
             </AnimatePresence>
 
             {/* Code block */}
-            <motion.div
-              style={{ y: codeY, opacity: codeOpacity }}
+            <div
               className={`relative z-20 rounded-2xl overflow-hidden border border-white/10 bg-black/70 backdrop-blur-2xl shadow-2xl ${photo_visible ? "rounded-t-none border-t-0" : ""}`}
             >
               {/* Title bar — clickable */}
@@ -149,7 +142,7 @@ export function Hero() {
                 <p className="ml-8"><span className="text-orange-400">self</span>.role = <span className="text-green-400">"Full-Stack AI Developer"</span></p>
                 <p className="ml-8"><span className="text-orange-400">self</span>.core = [<span className="text-green-400">"Python"</span>, <span className="text-green-400">"Next.js"</span>]</p>
               </div>
-            </motion.div>
+            </div>
           </motion.div>
 
         </div>
