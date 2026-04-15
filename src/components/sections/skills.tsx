@@ -57,8 +57,12 @@ export function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm hover:border-blue-500/50 transition-colors group"
+              className="p-6 rounded-2xl border border-neutral-200 dark:border-white/5 bg-white/40 dark:bg-black/40 backdrop-blur-xl hover:border-cyan-500/50 hover:shadow-[0_0_30px_-5px_rgba(6,182,212,0.3)] transition-all duration-300 group relative overflow-hidden"
             >
+              {/* Efecto Glow Hover Interno */}
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 via-transparent to-purple-500/0 group-hover:from-cyan-500/10 group-hover:to-purple-500/10 transition-colors duration-500"></div>
+              
+              <div className="relative z-10">
               {skill.icon}
               <h3 className="text-xl font-bold mb-4">{skill.category}</h3>
               <div className="flex flex-wrap gap-2">
@@ -70,6 +74,7 @@ export function Skills() {
                     {item}
                   </span>
                 ))}
+              </div>
               </div>
             </motion.div>
           ))}
