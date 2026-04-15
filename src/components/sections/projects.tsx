@@ -36,12 +36,11 @@ const projects = [
     title: "Jadix Landing Builder",
     type: "Generador de Plantillas UI",
     description: "Motor interno para generar landing pages de alta conversión basadas en React 19 y Tailwind 4. Integra el ecosistema Shadcn UI, Recharts y validaciones con Zod. Un producto preparado para escalar con cobertura Vitest.",
-    image: "/projects/landing-templates.png",
-    objectPosition: "object-center",
-    imageStyle: "object-cover",
+    emoji: "🚀",
     tags: ["React 19", "Tailwind 4", "Shadcn UI", "Vitest", "Zod"],
     links: {
-      github: "#"
+      github: "mailto:led_and@hotmail.es?subject=Solicitud%20de%20acceso%20a%20Jadix%20Landing%20Builder&body=Hola%20Andy%2C%0A%0AMe%20gustar%C3%ADa%20solicitar%20acceso%20al%20repositorio%20privado%20Jadix%20Landing%20Builder.%0A%0AMi%20usuario%20o%20correo%20de%20GitHub%20es%3A%20%5BESCRIBE%20TU%20USUARIO%20O%20EMAIL%20AQUI%5D%0A%0ASaludos.",
+      githubPrivate: true
     },
     featured: false
   },
@@ -49,9 +48,7 @@ const projects = [
     title: "Clean Architecture Setup",
     type: "Open Source Boilerplate",
     description: "Template base para proyectos robustos aplicando principios SOLID y Clean Architecture para asegurar alta mantenibilidad y bajo acoplamiento.",
-    image: "/projects/clean.png",
-    objectPosition: "object-center",
-    imageStyle: "object-cover",
+    emoji: "🏗️",
     tags: ["TypeScript", "Node.js", "Jest", "SOLID"],
     links: {
       github: "https://github.com/Landryx-Gmz/Clean-Architecture-TypeScript"
@@ -64,13 +61,15 @@ interface Project {
   title: string;
   type: string;
   description: string;
-  image: string;
-  objectPosition: string;
-  imageStyle: string;
+  image?: string;
+  emoji?: string;
+  objectPosition?: string;
+  imageStyle?: string;
   tags: string[];
   links: {
     live?: string;
     github?: string;
+    githubPrivate?: boolean;
   };
   featured: boolean;
 }
@@ -92,40 +91,30 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className={`relative flex flex-col rounded-3xl overflow-hidden border border-neutral-200 dark:border-white/10 bg-white/40 dark:bg-black/40 backdrop-blur-xl shadow-lg transition-all hover:shadow-[0_0_40px_-10px_rgba(59,130,246,0.2)] ${project.featured ? 'lg:col-span-2 lg:flex-row' : ''}`}
+      className={`relative flex flex-col rounded-3xl overflow-hidden border border-neutral-200 dark:border-white/10 bg-white/40 dark:bg-black/40 backdrop-blur-xl shadow-lg transition-all hover:shadow-[0_0_40px_-10px_rgba(59,130,246,0.2)] ${project.featured ? 'lg:col-span-2 lg:flex-row' : 'h-full'}`}
     >
-      <div className={`relative bg-neutral-100 dark:bg-[#020617] overflow-hidden ${project.featured ? 'lg:w-1/2 min-h-[300px] lg:min-h-[400px]' : 'h-64'}`}>
-        {/* Imagen con Efecto Parallax y Link */}
-        <a href={project.links.live || project.links.github} target="_blank" rel="noreferrer" className="block w-full h-full">
-          <motion.div style={{ y }} className="absolute inset-0 w-full h-[120%] -top-[10%]">
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              className={`${project.imageStyle} ${project.objectPosition} opacity-90 hover:opacity-100 transition-opacity duration-500`}
-              onError={(e) => {
-                // Si la imagen no existe (como clean.png), mostramos un placeholder elegante
-                const target = e.target as HTMLImageElement;
-                const parent = target.parentElement;
-                if (parent) {
-                  target.style.display = 'none';
-                  const placeholder = document.createElement('div');
-                  placeholder.className = "absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 flex items-center justify-center";
-                  placeholder.innerHTML = '<svg class="w-16 h-16 text-neutral-500/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-5c1.62-2.2 5-3 5-3l1 1"/><path d="M12 15v5s3.03-.55 5-2c2.2-1.62 3-5 3-5l-1-1"/></svg>';
-                  parent.appendChild(placeholder);
-                }
-              }}
-            />
-          </motion.div>
-        </a>
-        
-        {/* Overlay para mejorar legibilidad del parallax */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none"></div>
-      </div>
+      {project.image && (
+        <div className={`relative bg-neutral-100 dark:bg-[#020617] overflow-hidden ${project.featured ? 'lg:w-1/2 min-h-[300px] lg:min-h-[400px]' : 'h-64'}`}>
+          <a href={project.links.live || project.links.github} target={project.links.github?.startsWith('mailto:') ? '_self' : '_blank'} rel="noreferrer" className="block w-full h-full">
+            <motion.div style={{ y }} className="absolute inset-0 w-full h-[120%] -top-[10%]">
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className={`${project.imageStyle} ${project.objectPosition} opacity-90 hover:opacity-100 transition-opacity duration-500`}
+              />
+            </motion.div>
+          </a>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none"></div>
+        </div>
+      )}
 
-      <div className={`p-8 flex flex-col justify-center ${project.featured ? 'lg:w-1/2' : ''}`}>
-        <div className="text-xs font-mono font-bold text-blue-500 mb-2 uppercase tracking-widest">
-          {project.type}
+      <div className={`p-8 flex flex-col ${project.featured ? 'lg:w-1/2 justify-center' : 'flex-1'}`}>
+        <div className="flex items-center gap-3 mb-3">
+          {project.emoji && <span className="text-xl md:text-2xl">{project.emoji}</span>}
+          <div className="text-xs font-mono font-bold text-blue-500 uppercase tracking-widest">
+            {project.type}
+          </div>
         </div>
         <h3 className="text-2xl lg:text-3xl font-bold mb-4 text-neutral-900 dark:text-white">{project.title}</h3>
         <p className="text-neutral-600 dark:text-neutral-400 mb-8 leading-relaxed">
@@ -153,12 +142,12 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
           {project.links.github && (
             <a
               href={project.links.github}
-              target="_blank"
+              target={project.links.github.startsWith('mailto:') ? '_self' : '_blank'}
               rel="noreferrer"
               className="inline-flex items-center text-sm font-bold text-neutral-900 dark:text-white hover:text-blue-500 dark:hover:text-blue-400 transition-colors group"
             >
               <Github className="mr-2 w-4 h-4 group-hover:scale-110 transition-transform" />
-              Código Fuente
+              {project.links.githubPrivate ? "Solicitar Acceso (Privado)" : "Código Fuente"}
             </a>
           )}
         </div>

@@ -28,7 +28,7 @@ export function Footer() {
               <Github className="w-5 h-5" />
             </a>
             <a
-              href="https://www.linkedin.com/in/andy-gomez"
+              href="https://www.linkedin.com/in/andr%C3%A9s-p-g%C3%B3mez/"
               target="_blank"
               rel="noreferrer"
               className="w-10 h-10 flex items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 hover:bg-blue-100 hover:text-blue-600 dark:hover:bg-blue-900/30 dark:hover:text-blue-400 transition-colors"
@@ -36,7 +36,7 @@ export function Footer() {
               <Linkedin className="w-5 h-5" />
             </a>
             <a
-              href="mailto:andy.backend.dev@gmail.com"
+              href="mailto:led_and@hotmail.es"
               className="w-10 h-10 flex items-center justify-center rounded-full bg-neutral-100 dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400 hover:bg-blue-100 hover:text-blue-600 dark:hover:bg-blue-900/30 dark:hover:text-blue-400 transition-colors"
             >
               <Mail className="w-5 h-5" />

@@ -64,11 +64,11 @@ export function Hero() {
                 <Github className="h-6 w-6" />
                 <span className="sr-only">GitHub</span>
               </a>
-              <a href="https://www.linkedin.com/in/andy-gomez" target="_blank" rel="noreferrer" className="hover:text-blue-500 transition-colors">
+              <a href="https://www.linkedin.com/in/andr%C3%A9s-p-g%C3%B3mez/" target="_blank" rel="noreferrer" className="hover:text-blue-500 transition-colors">
                 <Linkedin className="h-6 w-6" />
                 <span className="sr-only">LinkedIn</span>
               </a>
-              <a href="mailto:andy.backend.dev@gmail.com" className="hover:text-blue-500 transition-colors">
+              <a href="mailto:led_and@hotmail.es" className="hover:text-blue-500 transition-colors">
                 <Mail className="h-6 w-6" />
                 <span className="sr-only">Email</span>
               </a>
