@@ -35,11 +35,11 @@ const skills = [
 
 export function Skills() {
   const [drawer_open, set_drawer_open] = useState(false);
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState<number | null>(null);
 
   return (
     <>
-      <section id="skills" className="py-24 relative">
+      <section id="skills" className="py-24 relative min-h-[500px]">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
             <motion.div
@@ -62,16 +62,16 @@ export function Skills() {
               {skills.map((skill, index) => {
                 const isActive = activeTab === index;
                 // Prevenimos que el margen bottom del icono descuadre la tab
-                const skillIcon = <div className={`[&>svg]:mb-0 [&>svg]:w-5 [&>svg]:h-5 ${isActive ? "" : "opacity-60 grayscale"}`}>{skill.icon}</div>;
+                const skillIcon = <div className={`[&>svg]:mb-0 [&>svg]:w-5 [&>svg]:h-5 transition-all duration-300 ${isActive ? "" : "opacity-80 group-hover:scale-110 group-hover:brightness-125"}`}>{skill.icon}</div>;
                 return (
                   <button
                     key={skill.category}
-                    onClick={() => setActiveTab(index)}
-                    className={`relative px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2
+                    onClick={() => setActiveTab(isActive ? null : index)}
+                    className={`group relative px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2
                       ${isActive 
                         ? "text-cyan-400 bg-cyan-500/10 border-cyan-500/50 shadow-[0_0_15px_-3px_rgba(6,182,212,0.4)]" 
-                        : "text-neutral-500 hover:text-neutral-300 hover:bg-white/5 border-transparent"
-                      } border`}
+                        : "text-neutral-300 bg-neutral-900/40 border-white/10 hover:bg-white/10 hover:border-white/20 hover:text-white shadow-sm hover:shadow-[0_0_20px_-5px_rgba(255,255,255,0.1)]"
+                      } border backdrop-blur-md`}
                   >
                     {skillIcon}
                     {skill.category}
@@ -80,36 +80,41 @@ export function Skills() {
               })}
             </div>
 
-            {/* Zona de Visualización Dinámica de Burbujas */}
-            <div className="w-full max-w-3xl min-h-[220px] relative flex flex-col items-center justify-center p-8 rounded-3xl border border-neutral-200 dark:border-white/5 bg-white/5 dark:bg-[#020617]/50 backdrop-blur-md">
-                
-              <h3 className="text-xl font-bold text-neutral-400 mb-8 absolute top-8 left-8 hidden md:block opacity-50">
-                // {skills[activeTab].category}
-              </h3>
-
-              <AnimatePresence mode="wait">
+            {/* Zona de Visualización Dinámica de Burbujas - Oculta inicialmente */}
+            <AnimatePresence>
+              {activeTab !== null && (
                 <motion.div
-                  key={activeTab} // Clave dinámica para desmontar/montar
-                  initial={{ opacity: 0, scale: 0.95, filter: "blur(4px)" }}
-                  animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, scale: 0.95, filter: "blur(4px)" }}
-                  transition={{ duration: 0.3 }}
-                  className="flex flex-wrap justify-center gap-4 mt-6 md:mt-0"
+                  initial={{ opacity: 0, height: 0, filter: "blur(10px)" }}
+                  animate={{ opacity: 1, height: "auto", filter: "blur(0px)" }}
+                  exit={{ opacity: 0, height: 0, filter: "blur(10px)" }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                  className="w-full max-w-3xl relative flex flex-col items-center justify-center p-8 rounded-3xl border border-neutral-200 dark:border-white/5 bg-white/5 dark:bg-[#020617]/50 backdrop-blur-md overflow-hidden"
                 >
-                  {skills[activeTab].items.map((item, i) => (
+                  <AnimatePresence mode="wait">
                     <motion.div
-                      key={item}
-                      initial={{ opacity: 0, y: 15 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4, delay: i * 0.05 }}
-                      className="px-5 py-2.5 rounded-full text-sm font-mono font-medium border border-cyan-500/30 bg-cyan-500/10 text-cyan-500 dark:text-cyan-400 shadow-[0_0_20px_-5px_rgba(6,182,212,0.2)] hover:bg-cyan-500/20 hover:scale-105 hover:shadow-[0_0_25px_-2px_rgba(6,182,212,0.4)] transition-all cursor-default"
+                      key={activeTab} // Clave dinámica para desmontar/montar
+                      initial={{ opacity: 0, scale: 0.95, filter: "blur(4px)" }}
+                      animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, scale: 0.95, filter: "blur(4px)" }}
+                      transition={{ duration: 0.3 }}
+                      className="flex flex-wrap justify-center gap-4"
                     >
-                      {item}
+                      {skills[activeTab].items.map((item, i) => (
+                        <motion.div
+                          key={item}
+                          initial={{ opacity: 0, y: 15 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.4, delay: i * 0.05 }}
+                          className="px-5 py-2.5 rounded-full text-sm font-mono font-medium border border-cyan-500/30 bg-cyan-500/10 text-cyan-500 dark:text-cyan-400 shadow-[0_0_20px_-5px_rgba(6,182,212,0.2)] hover:bg-cyan-500/20 hover:scale-105 hover:shadow-[0_0_25px_-2px_rgba(6,182,212,0.4)] transition-all cursor-default"
+                        >
+                          {item}
+                        </motion.div>
+                      ))}
                     </motion.div>
-                  ))}
+                  </AnimatePresence>
                 </motion.div>
-              </AnimatePresence>
-            </div>
+              )}
+            </AnimatePresence>
           </div>
 
           {/* Botón para abrir el drawer de certificaciones */}
