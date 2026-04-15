@@ -49,7 +49,7 @@ export function NeuralNetworkBackground() {
         ctx!.beginPath();
         ctx!.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         // Usa un color azul claro sutil
-        ctx!.fillStyle = "rgba(59, 130, 246, 0.5)";
+        ctx!.fillStyle = "rgba(59, 130, 246, 0.8)";
         ctx!.fill();
       }
     }
@@ -77,7 +77,7 @@ export function NeuralNetworkBackground() {
 
             // Opacidad basada en la distancia
             const opacity = 1 - distance / 150;
-            ctx!.strokeStyle = `rgba(59, 130, 246, ${opacity * 0.2})`;
+            ctx!.strokeStyle = `rgba(59, 130, 246, ${opacity * 0.35})`;
             ctx!.lineWidth = 1;
             ctx!.stroke();
           }
@@ -111,7 +111,7 @@ export function NeuralNetworkBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 w-full h-full -z-10 pointer-events-none opacity-50 dark:opacity-30"
+      className="fixed inset-0 w-full h-full -z-10 pointer-events-none opacity-80 dark:opacity-50"
     />
   );
 }
