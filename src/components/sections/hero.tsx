@@ -35,7 +35,7 @@ export function Hero() {
                 </span>
               </h1>
               <h2 className="text-xl sm:text-2xl font-medium text-neutral-600 dark:text-neutral-400 font-mono">
-                &gt; Full-Stack AI Developer_
+                &gt; Full-Stack Developer & AI Orchestrator_
               </h2>
               <p className="max-w-[550px] text-neutral-600 dark:text-neutral-300 md:text-lg leading-relaxed">
                 Construyo plataformas web robustas bajo estándares de Clean Architecture. Integro automatizaciones e IA para transformar arquitecturas complejas en negocios escalables.

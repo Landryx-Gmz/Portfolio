@@ -22,9 +22,9 @@ const skills = [
     items: ["n8n (Workflows)", "Resend", "Formspark", "Webhooks", "Integración de APIs", "Procesos Background"]
   },
   {
-    category: "Inteligencia Artificial",
+    category: "Orquestación de IA",
     icon: <BrainCircuit className="w-6 h-6 mb-4 text-blue-500" />,
-    items: ["Vercel AI SDK", "Grok API", "OpenAI", "LangChain", "Prompt Engineering", "Agentes Autónomos"]
+    items: ["MCP & Skills System", "Prompt Engineering", "Prompt Rules (.rules)", "Vercel AI SDK", "LLM APIs", "Agentes Autónomos"]
   },
   {
     category: "Cloud & Testing",
@@ -61,20 +61,37 @@ export function Skills() {
             <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-10 max-w-4xl">
               {skills.map((skill, index) => {
                 const isActive = activeTab === index;
+                const showSpark = !isActive && activeTab === null; // Solo muestra destellos si no hay nada seleccionado
+                
                 // Prevenimos que el margen bottom del icono descuadre la tab
                 const skillIcon = <div className={`[&>svg]:mb-0 [&>svg]:w-5 [&>svg]:h-5 transition-all duration-300 ${isActive ? "" : "opacity-80 group-hover:scale-110 group-hover:brightness-125"}`}>{skill.icon}</div>;
+                
                 return (
                   <button
                     key={skill.category}
                     onClick={() => setActiveTab(isActive ? null : index)}
-                    className={`group relative px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2
-                      ${isActive 
-                        ? "text-cyan-400 bg-cyan-500/10 border-cyan-500/50 shadow-[0_0_15px_-3px_rgba(6,182,212,0.4)]" 
-                        : "text-neutral-300 bg-neutral-900/40 border-white/10 hover:bg-white/10 hover:border-white/20 hover:text-white shadow-sm hover:shadow-[0_0_20px_-5px_rgba(255,255,255,0.1)]"
-                      } border backdrop-blur-md`}
+                    className={`group relative rounded-full p-[1px] text-sm font-medium transition-all duration-300 overflow-hidden ${
+                      isActive ? "shadow-[0_0_15px_-3px_rgba(6,182,212,0.4)]" : "hover:shadow-[0_0_20px_-5px_rgba(255,255,255,0.1)]"
+                    }`}
                   >
-                    {skillIcon}
-                    {skill.category}
+                    {/* Efecto Destello (Border Spin) */}
+                    {showSpark && (
+                      <div 
+                        className="absolute inset-[-200%] animate-spin bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,#06b6d4_60%,transparent_100%)] opacity-30 group-hover:opacity-100 transition-opacity duration-500" 
+                        style={{ animationDuration: '4s' }} 
+                      />
+                    )}
+
+                    {/* Contenedor Interior del Boton (Fondo Oscuro para tapar centro) */}
+                    <div className={`relative px-5 py-2.5 rounded-full flex items-center gap-2 backdrop-blur-xl w-full h-full border ${
+                        isActive 
+                        ? "bg-cyan-500/10 border-cyan-500/50 text-cyan-400" 
+                        : "bg-neutral-950/80 border-white/5 hover:border-white/10 group-hover:bg-neutral-900/80 text-neutral-300 group-hover:text-white"
+                      }`}
+                    >
+                      {skillIcon}
+                      {skill.category}
+                    </div>
                   </button>
                 );
               })}
