@@ -19,5 +19,5 @@ Este documento rastrea las tareas de modernización, rediseño y nuevas caracter
 - [x] **Rediseño del Stack Tecnológico**: Transformación del antiguo grid a un sistema avanzado de Pestañas Dinámicas (Dynamic Tabs) con efectos de Glassmorphism y reorganización estratégica de las tecnologías reales dominadas (TurboRepo, NextAuth, OpenNext, n8n, etc.) con énfasis especial en "Automatización".
 
 ## 📧 Fase 4: Newsletter & Comunidad
-- [ ] **Sección de Suscripción**: Crear un bloque de "Newsletter" para captar correos.
-- [ ] **Integración de API**: Conectar el formulario con la API en Python.
+- [x] **Sección de Suscripción**: Diseñado componente Newsletter con Copywriting de venta enfocado en la mentalidad 'AI-Native Developer' (aprendizaje y resolución), estilos glassmorphism y micro-interacciones (botón asíncrono, validación).
+- [x] **Integración de API / Captación**: Conectado el formulario Frontend de forma asíncrona a un Endpoint centralizado (Formspark) preparado para desencadenar el flujo de orquestación de Leads (Notion -> n8n -> Resend).

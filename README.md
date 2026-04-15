@@ -12,10 +12,11 @@ Porfolio personal de Andy Gomez, "Full-Stack AI Developer".
    - Fondo de "Redes Neuronales" animado.
 
 3. **Secciones del Portafolio**
-   - **Hero:** Presentación y rol.
-   - **Skills:** Resumen del stack tecnológico con iconos.
-   - **Proyectos:** JadixTech y otros proyectos.
-   - **Contacto/Footer.**
+   - **Hero:** Presentación, mentalidad ('AI Orchestrator') y rol.
+   - **Skills:** Resumen del stack tecnológico con menús interactivos de selección y destellos mágicos.
+   - **Proyectos:** Grid de proyectos con carrusel expansible y recortes parallax.
+   - **Newsletter / Comunidad:** Motor de captación asíncrono enganchado a un sistema automatizado de Leads.
+   - **Footer:** Redes sociales y branding.
 
 4. **Integración del Backend e IA**
    - Endpoint `api/chat` para procesar mensajes del usuario simulando inteligencia artificial usando Python.
