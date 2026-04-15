@@ -1,41 +1,54 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ExternalLink, Github, Rocket } from "lucide-react";
+import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { ExternalLink, Github, Rocket, ChevronDown } from "lucide-react";
 import Image from "next/image";
 
 const projects = [
   {
-    title: "JadixTech",
-    type: "SaaS Platform - En Desarrollo",
-    description: "Plataforma SaaS escalable para desarrollo de software, ecommerce y landing pages. Actúo como colaborador principal diseñando la arquitectura base.",
+    title: "JadixTech - Ecosistema de Software",
+    type: "SaaS Platform & AI Automation",
+    description: "Desarrollo y diseño de arquitectura base (Turbo Monorepo & DDD) orquestado mediante Inteligencia Artificial. Cuenta con dashboard, pasarela de pagos y captación automatizada combinando Resend y un Chatbot alimentado por Grok.",
     image: "/projects/jadix.png",
     objectPosition: "object-center",
-    imageStyle: "object-contain bg-[#020617]", // Fondo oscuro para que no se note el contain
-    tags: ["Python", "FastAPI", "PostgreSQL", "React", "Docker", "Clean Architecture"],
+    imageStyle: "object-cover", 
+    tags: ["Next.js", "TurboRepo", "DDD", "NextAuth", "Grok API", "Resend", "Prisma"],
     links: {
       live: "https://jadixtech.com/"
     },
     featured: true
   },
   {
-    title: "Mentoria Sana - Lidia Pérez",
-    type: "Landing Page & Funnel",
-    description: "Desarrollo de landing pages optimizadas para conversión y funnels de venta para servicios de mentoría y webinars.",
+    title: "Mentoría Sana - Lidia Pérez",
+    type: "High-Conversion Funnel & Automations",
+    description: "Rediseño completo enfocado en estética premium y performance para OpenNext / Cloudflare Edge. Sustituyó una web obsoleta, logrando captar +400 leads reales en sus primeros 4 días. Automatizado mediante n8n (Railway) y Formspark.",
     image: "/projects/lidia.png",
-    objectPosition: "object-center",
-    imageStyle: "object-contain bg-white", // Fondo blanco para que case con su web
-    tags: ["Next.js", "Tailwind CSS", "SEO", "Performance"],
+    objectPosition: "object-top",
+    imageStyle: "object-cover", 
+    tags: ["Next.js", "Cloudflare Pages", "n8n", "Formspark", "Railway", "Conversion UI"],
     links: {
       live: "https://lidiaperezperez.com/"
     },
     featured: true
   },
   {
+    title: "Jadix Landing Builder",
+    type: "Generador de Plantillas UI",
+    description: "Motor interno para generar landing pages de alta conversión basadas en React 19 y Tailwind 4. Integra el ecosistema Shadcn UI, Recharts y validaciones con Zod. Un producto preparado para escalar con cobertura Vitest.",
+    image: "/projects/landing-templates.png",
+    objectPosition: "object-center",
+    imageStyle: "object-cover",
+    tags: ["React 19", "Tailwind 4", "Shadcn UI", "Vitest", "Zod"],
+    links: {
+      github: "#"
+    },
+    featured: false
+  },
+  {
     title: "Clean Architecture Setup",
-    type: "Open Source",
-    description: "Template base para proyectos robustos aplicando principios SOLID y Clean Architecture para una alta mantenibilidad.",
+    type: "Open Source Boilerplate",
+    description: "Template base para proyectos robustos aplicando principios SOLID y Clean Architecture para asegurar alta mantenibilidad y bajo acoplamiento.",
     image: "/projects/clean.png",
     objectPosition: "object-center",
     imageStyle: "object-cover",
@@ -47,7 +60,22 @@ const projects = [
   }
 ];
 
-function ProjectCard({ project, index }: { project: any, index: number }) {
+interface Project {
+  title: string;
+  type: string;
+  description: string;
+  image: string;
+  objectPosition: string;
+  imageStyle: string;
+  tags: string[];
+  links: {
+    live?: string;
+    github?: string;
+  };
+  featured: boolean;
+}
+
+function ProjectCard({ project, index }: { project: Project, index: number }) {
   const container_ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: container_ref,
@@ -64,7 +92,7 @@ function ProjectCard({ project, index }: { project: any, index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className={`flex flex-col rounded-3xl overflow-hidden border border-neutral-200 dark:border-white/10 bg-white/40 dark:bg-black/40 backdrop-blur-xl shadow-lg transition-all hover:shadow-[0_0_40px_-10px_rgba(59,130,246,0.2)] ${project.featured ? 'lg:col-span-2 lg:flex-row' : ''}`}
+      className={`relative flex flex-col rounded-3xl overflow-hidden border border-neutral-200 dark:border-white/10 bg-white/40 dark:bg-black/40 backdrop-blur-xl shadow-lg transition-all hover:shadow-[0_0_40px_-10px_rgba(59,130,246,0.2)] ${project.featured ? 'lg:col-span-2 lg:flex-row' : ''}`}
     >
       <div className={`relative bg-neutral-100 dark:bg-[#020617] overflow-hidden ${project.featured ? 'lg:w-1/2 min-h-[300px] lg:min-h-[400px]' : 'h-64'}`}>
         {/* Imagen con Efecto Parallax y Link */}
@@ -140,13 +168,17 @@ function ProjectCard({ project, index }: { project: any, index: number }) {
 }
 
 export function Projects() {
+  const [showMore, setShowMore] = useState(false);
+  const featuredProjects = projects.filter(p => p.featured);
+  const otherProjects = projects.filter(p => !p.featured);
+
   return (
     <section id="projects" className="py-24 relative overflow-hidden">
       {/* Elementos decorativos de fondo */}
       <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
       <div className="absolute bottom-1/4 left-0 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
 
-      <div className="container px-4 md:px-6">
+      <div className="container relative px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -155,19 +187,51 @@ export function Projects() {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
-              Proyectos Destacados
+              Proyectos Seleccionados
             </h2>
             <p className="max-w-[700px] mt-6 text-neutral-500 dark:text-neutral-400 md:text-xl leading-relaxed">
-              Soluciones tecnológicas que combinan Arquitectura Limpia con la potencia de la Inteligencia Artificial.
+              Una muestra de soluciones en producción desarrolladas para clientes reales, optimizadas para rendimiento y escalabilidad.
             </p>
           </motion.div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          {projects.map((project, index) => (
+          {featuredProjects.map((project, index) => (
             <ProjectCard key={project.title} project={project} index={index} />
           ))}
         </div>
+
+        {otherProjects.length > 0 && (
+          <div className="mt-16 flex flex-col items-center">
+            <button
+              onClick={() => setShowMore(!showMore)}
+              className="group flex items-center gap-2 px-6 py-3 rounded-full border border-neutral-200 dark:border-white/10 bg-white/50 dark:bg-black/50 backdrop-blur-md text-neutral-900 dark:text-white font-medium hover:bg-neutral-100 dark:hover:bg-white/5 transition-all text-sm shadow-sm"
+            >
+              {showMore ? "Ocultar proyectos" : "Ver más proyectos"}
+              <motion.div animate={{ rotate: showMore ? 180 : 0 }} transition={{ duration: 0.3 }}>
+                <ChevronDown className="w-4 h-4" />
+              </motion.div>
+            </button>
+
+            <AnimatePresence>
+              {showMore && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="w-full overflow-hidden mt-10"
+                >
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-4">
+                    {otherProjects.map((project, index) => (
+                      <ProjectCard key={project.title} project={project} index={index} />
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        )}
       </div>
     </section>
   );
