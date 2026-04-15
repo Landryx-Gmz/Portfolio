@@ -19,7 +19,7 @@ export function NeuralNetworkBackground() {
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      initParticles();
+      init_particles();
     };
 
     class Particle {
@@ -54,16 +54,16 @@ export function NeuralNetworkBackground() {
       }
     }
 
-    const initParticles = () => {
+    const init_particles = () => {
       particles = [];
       // Menos partículas en pantallas pequeñas
-      const numParticles = Math.floor((canvas.width * canvas.height) / 15000);
-      for (let i = 0; i < numParticles; i++) {
+      const num_particles = Math.floor((canvas.width * canvas.height) / 15000);
+      for (let i = 0; i < num_particles; i++) {
         particles.push(new Particle());
       }
     };
 
-    const drawConnections = () => {
+    const draw_connections = () => {
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -93,7 +93,7 @@ export function NeuralNetworkBackground() {
         particle.draw();
       });
 
-      drawConnections();
+      draw_connections();
 
       animationFrameId = requestAnimationFrame(animate);
     };
