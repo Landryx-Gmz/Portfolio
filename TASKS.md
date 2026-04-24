@@ -28,8 +28,8 @@ Este documento rastrea las tareas de modernización, rediseño y nuevas caracter
 - [x] **UX Tech Stack**: Alinear automáticamente la ventana entre el botón de la tecnología y su explicación al hacer clic.
 - [x] **Jerarquía de Certificados**: Dar prioridad y orden específico a los certificados que aparecen debajo del principal.
 - [x] **Mejora Asset Proyectos**: Optimizar la imagen del proyecto de Lidia Pérez para un acabado más profesional.
-- [ ] **Refactor de Footer**: Rediseñar el pie de página para una estética más corporativa y "senior".
-- [ ] **Chatbot Funcional**: Implementar la lógica de interacción real del asistente de IA.
-- [ ] **Identidad Visual**: Crear e integrar el Favicon del sitio.
+- [x] **Refactor de Footer**: Rediseñar el pie de página para una estética más corporativa y "senior".
+- [x] **Chatbot Funcional**: Implementar la lógica de interacción real del asistente de IA.
+- [x] **Identidad Visual**: Crear e integrar el Favicon del sitio.
 - [ ] **Configuración Newsletter**: Crear y validar la cuenta de gestión de la newsletter para que sea operativa.
-- [ ] **Preparación Producción**: Sustituir emails personales por corporativos oficiales en el entorno de despliegue.
+- [x] **Preparación Producción**: Sustituir emails personales por corporativos oficiales en el entorno de despliegue.

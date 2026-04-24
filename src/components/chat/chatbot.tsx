@@ -1,60 +1,102 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquare, X, Send, Terminal } from "lucide-react";
 
-interface Message {
+interface ChatMessage {
+  id: string;
   role: "user" | "assistant";
   content: string;
 }
 
+const WELCOME_MESSAGE: ChatMessage = {
+  id: "welcome",
+  role: "assistant",
+  content:
+    "¡Hola! Soy AndyAI, el asistente virtual de este portfolio. ¿Qué te gustaría saber sobre la experiencia, proyectos o habilidades de Andy?",
+};
+
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", content: "¡Hola! Soy AndyAI, el asistente virtual de Andy. ¿Qué te gustaría saber sobre su experiencia, proyectos o habilidades?" }
-  ]);
-  const [input, setInput] = useState("");
+  const [inputValue, setInputValue] = useState("");
+  const [messages, setMessages] = useState<ChatMessage[]>([WELCOME_MESSAGE]);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
+  const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, scrollToBottom]);
 
-  const handle_submit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim() || isLoading) return;
+    if (!inputValue.trim() || isLoading) return;
 
-    const user_msg = input.trim();
-    setInput("");
-    setMessages((prev) => [...prev, { role: "user", content: user_msg }]);
+    const userMessage: ChatMessage = {
+      id: Date.now().toString(),
+      role: "user",
+      content: inputValue.trim(),
+    };
+
+    // Añadir mensaje del usuario y limpiar input
+    setMessages((prev) => [...prev, userMessage]);
+    setInputValue("");
     setIsLoading(true);
 
+    // Preparar historial para la API (sin el mensaje de bienvenida estático)
+    const api_messages = [...messages.filter((m) => m.id !== "welcome"), userMessage].map(
+      (m) => ({ role: m.role, content: m.content })
+    );
+
     try {
-      const res = await fetch("/api/chat", {
+      const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: user_msg }),
+        body: JSON.stringify({ messages: api_messages }),
       });
 
-      if (!res.ok) throw new Error("Error en la respuesta");
+      if (!response.ok) {
+        throw new Error(`Error ${response.status}`);
+      }
 
-      const data = await res.json();
+      // Leer el stream de texto plano token a token
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
 
+      const assistantId = (Date.now() + 1).toString();
+      // Crear mensaje vacío del asistente para ir rellenando
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: data.reply || "Lo siento, tuve un problema procesando tu mensaje." }
+        { id: assistantId, role: "assistant", content: "" },
       ]);
+
+      if (reader) {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const token = decoder.decode(value, { stream: true });
+          setMessages((prev) =>
+            prev.map((m) =>
+              m.id === assistantId ? { ...m, content: m.content + token } : m
+            )
+          );
+        }
+      }
     } catch (error) {
-      console.error(error);
+      console.error("Error en chat:", error);
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: "Error de conexión con mis sistemas centrales. Intenta de nuevo más tarde." }
+        {
+          id: (Date.now() + 2).toString(),
+          role: "assistant",
+          content:
+            "⚠️ Ha ocurrido un error de conexión. Por favor, intenta de nuevo en unos segundos.",
+        },
       ]);
     } finally {
       setIsLoading(false);
@@ -95,7 +137,8 @@ export function Chatbot() {
                 <div>
                   <h3 className="font-semibold text-sm">AndyAI</h3>
                   <p className="text-xs text-green-500 font-mono flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> Online
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>{" "}
+                    Online
                   </p>
                 </div>
               </div>
@@ -109,15 +152,15 @@ export function Chatbot() {
 
             {/* Mensajes */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
-              {messages.map((msg, i) => (
+              {messages.map((msg) => (
                 <motion.div
-                  key={i}
+                  key={msg.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-[80%] p-3 rounded-2xl text-sm ${
+                    className={`max-w-[80%] p-3 rounded-2xl text-sm whitespace-pre-wrap ${
                       msg.role === "user"
                         ? "bg-blue-600 text-white rounded-tr-sm"
                         : "bg-neutral-100 dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 rounded-tl-sm border border-neutral-200 dark:border-neutral-800"
@@ -127,7 +170,7 @@ export function Chatbot() {
                   </div>
                 </motion.div>
               ))}
-              {isLoading && (
+              {isLoading && messages[messages.length - 1]?.role === "user" && (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -144,25 +187,30 @@ export function Chatbot() {
             </div>
 
             {/* Input form */}
-            <form onSubmit={handle_submit} className="p-4 border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950">
+            <form
+              onSubmit={handleSubmit}
+              className="p-4 border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950"
+            >
               <div className="relative flex items-center">
                 <input
                   type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Pregunta algo..."
                   className="w-full bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-full pl-4 pr-12 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 />
                 <button
                   type="submit"
-                  disabled={!input.trim() || isLoading}
+                  disabled={!inputValue.trim() || isLoading}
                   className="absolute right-2 p-2 bg-blue-600 text-white rounded-full disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700 transition-colors"
                 >
                   <Send className="w-4 h-4" />
                 </button>
               </div>
               <div className="text-center mt-2">
-                <span className="text-[10px] text-neutral-400 font-mono">v1.0.0-beta</span>
+                <span className="text-[10px] text-neutral-400 font-mono">
+                  v1.0 · AndyAI Engine
+                </span>
               </div>
             </form>
           </motion.div>

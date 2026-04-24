@@ -1,43 +1,35 @@
 # Portfolio
-Porfolio personal de Andy Gomez, "Full-Stack AI Developer".
+Portfolio personal de Andy Gomez, "Full-Stack AI Developer".
 
-## Plan de Desarrollo: Portafolio AI Developer
+## Stack
 
-1. **Configuración del Proyecto Next.js + Tailwind + Python**
-   - Next.js con App Router, Tailwind CSS, TypeScript y ESLint.
-   - Backend de Python (FastAPI) usando la convención de `api/` de Vercel.
+- **Frontend:** Next.js 16 (App Router), React 19, TypeScript, Tailwind 4.
+- **UI & Animaciones:** Framer Motion, Lucide Icons, `shadcn` base styles.
+- **IA:** Chatbot con streaming vía API de Groq (`llama-3.3-70b-versatile`).
+- **Formularios / Leads:** Formspark + automatizaciones n8n.
+- **Deploy:** Vercel.
 
-2. **Diseño Base y UI/UX Futurista**
-   - Sistema Claro/Oscuro y base para Multi-idioma (ES/EN).
-   - Fondo de "Redes Neuronales" animado.
+## Secciones
 
-3. **Secciones del Portafolio**
-   - **Hero:** Presentación, mentalidad ('AI Orchestrator') y rol.
-   - **Skills:** Resumen del stack tecnológico con menús interactivos de selección y destellos mágicos.
-   - **Proyectos:** Grid de proyectos con carrusel expansible y recortes parallax.
-   - **Newsletter / Comunidad:** Motor de captación asíncrono enganchado a un sistema automatizado de Leads.
-   - **Footer:** Redes sociales y branding.
-
-4. **Integración del Backend e IA**
-   - Endpoint `api/chat` para procesar mensajes del usuario simulando inteligencia artificial usando Python.
-   - Refactorización del Stack Tecnológico, demostrando dominio en Clean Architecture, Monorepos (TurboRepo) y sistemas Automatizados enfocados a UX e infraestructura Cloud Edge.
-
-5. **Chatbot Inteligente en el Frontend**
-   - Interfaz flotante de chat que interactúa con la API de Python.
+- **Hero:** Presentación, rol ("AI Orchestrator") y foto desplegable sobre bloque de código.
+- **Skills:** Stack tecnológico con tabs dinámicas y efecto destello.
+- **Proyectos:** Grid con parallax y menú expandible "Más proyectos".
+- **Certificaciones:** Drawer lateral con certificado destacado + resto.
+- **Newsletter:** Captación asíncrona conectada a Formspark.
+- **Chatbot:** Asistente flotante con streaming SSE en tiempo real.
+- **Footer:** Branding, enlaces y redes.
 
 ## Desarrollo Local
 
-Para correr este proyecto en local correctamente con el backend de Python:
-
-1. Instalar dependencias del frontend: `npm install`
-2. Instalar el CLI de Vercel (si no lo tienes): `npm i -g vercel`
-3. Iniciar el servidor local (ejecuta tanto Next.js como la API de Python):
-   ```bash
-   vercel dev
+1. Instalar dependencias: `npm install`
+2. Crear `.env.local` en la raíz con tu clave de Groq:
    ```
+   GROQ_API_KEY=gsk_...
+   ```
+3. Levantar el servidor: `npm run dev`
 
-Alternativamente, si usas `npm run dev`, el frontend funcionará, pero el endpoint de la API (`/api/chat`) no estará disponible.
+El endpoint del chatbot vive en [`src/app/api/chat/route.ts`](src/app/api/chat/route.ts).
 
 ## Despliegue
 
-Este proyecto está diseñado para ser desplegado en **Vercel** usando el archivo `vercel.json` configurado en la raíz, que permite usar funciones serverless de Python en la carpeta `api/`.
+Deploy en **Vercel**. No requiere configuración extra: las route handlers de Next.js se despliegan automáticamente como funciones serverless. Recuerda configurar `GROQ_API_KEY` en las variables de entorno del proyecto en Vercel.

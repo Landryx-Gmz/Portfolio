@@ -27,7 +27,7 @@ export function Header() {
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="font-mono text-xl font-bold tracking-tighter bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
-              ANDY_AI
+              ANDY_AI_DEV
             </div>
           </div>
           <nav className="hidden md:flex items-center gap-6">

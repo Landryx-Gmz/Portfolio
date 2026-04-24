@@ -2,18 +2,18 @@
 
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { ExternalLink, Github, Rocket, ChevronDown } from "lucide-react";
+import { ExternalLink, Github, ChevronDown } from "lucide-react";
 import Image from "next/image";
 
 const projects = [
   {
     title: "JadixTech - Ecosistema de Software",
     type: "SaaS Platform & AI Automation",
-    description: "Desarrollo y diseño de arquitectura base (Turbo Monorepo & DDD) orquestado mediante Inteligencia Artificial. Cuenta con dashboard, pasarela de pagos y captación automatizada combinando Resend y un Chatbot alimentado por Grok.",
+    description: "Desarrollo y diseño de arquitectura base (Turbo Monorepo) con dashboard, pasarela de pagos y captación automatizada mediante Resend. Proyecto en evolución activa con planes de incorporar automatizaciones predictivas en fases futuras.",
     image: "/projects/jadix.png",
     objectPosition: "object-center",
     imageStyle: "object-cover", 
-    tags: ["Next.js", "TurboRepo", "DDD", "NextAuth", "Grok API", "Resend", "Prisma"],
+    tags: ["Next.js", "TurboRepo", "NextAuth", "Resend", "Prisma", "TypeScript"],
     links: {
       live: "https://jadixtech.com/"
     },
@@ -39,7 +39,7 @@ const projects = [
     emoji: "🚀",
     tags: ["React 19", "Tailwind 4", "Shadcn UI", "Vitest", "Zod"],
     links: {
-      github: "mailto:led_and@hotmail.es?subject=Solicitud%20de%20acceso%20a%20Jadix%20Landing%20Builder&body=Hola%20Andy%2C%0A%0AMe%20gustar%C3%ADa%20solicitar%20acceso%20al%20repositorio%20privado%20Jadix%20Landing%20Builder.%0A%0AMi%20usuario%20o%20correo%20de%20GitHub%20es%3A%20%5BESCRIBE%20TU%20USUARIO%20O%20EMAIL%20AQUI%5D%0A%0ASaludos.",
+      github: "mailto:andygomez.dev@icloud.com?subject=Solicitud%20de%20acceso%20a%20Jadix%20Landing%20Builder&body=Hola%20Andy%2C%0A%0AMe%20gustar%C3%ADa%20solicitar%20acceso%20al%20repositorio%20privado%20Jadix%20Landing%20Builder.%0A%0AMi%20usuario%20o%20correo%20de%20GitHub%20es%3A%20%5BESCRIBE%20TU%20USUARIO%20O%20EMAIL%20AQUI%5D%0A%0ASaludos.",
       githubPrivate: true
     },
     featured: false

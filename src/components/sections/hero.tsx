@@ -35,10 +35,10 @@ export function Hero() {
                 </span>
               </h1>
               <h2 className="text-xl sm:text-2xl font-medium text-neutral-600 dark:text-neutral-400 font-mono">
-                &gt; Full-Stack Developer & AI Orchestrator_
+                &gt; Full-Stack Developer & AI Integrator_
               </h2>
               <p className="max-w-[550px] text-neutral-600 dark:text-neutral-300 md:text-lg leading-relaxed">
-                Construyo plataformas web robustas bajo estándares de Clean Architecture. Integro automatizaciones e IA para transformar arquitecturas complejas en negocios escalables.
+                Construyo plataformas web modernas con Next.js y TypeScript. Integro APIs de Inteligencia Artificial y automatizaciones para crear productos reales que escalan.
               </p>
             </div>
 
@@ -68,7 +68,7 @@ export function Hero() {
                 <Linkedin className="h-6 w-6" />
                 <span className="sr-only">LinkedIn</span>
               </a>
-              <a href="mailto:led_and@hotmail.es" className="hover:text-blue-500 transition-colors">
+              <a href="mailto:andygomez.dev@icloud.com" className="hover:text-blue-500 transition-colors">
                 <Mail className="h-6 w-6" />
                 <span className="sr-only">Email</span>
               </a>
@@ -135,18 +135,18 @@ export function Hero() {
 
               {/* Code content - Tech Refactored */}
               <div className="p-5 font-mono text-[13px] sm:text-sm leading-relaxed text-neutral-300 overflow-x-auto">
-                <p><span className="text-purple-400">import</span> {"{"} <span className="text-cyan-300">Architect</span>, <span className="text-cyan-300">Builder</span> {"}"} <span className="text-purple-400">from</span> <span className="text-green-400">"@domain/core"</span>;</p>
+                <p><span className="text-purple-400">import</span> {"{"} <span className="text-cyan-300">Architect</span>, <span className="text-cyan-300">Builder</span> {"}"} <span className="text-purple-400">from</span> <span className="text-green-400">{'"@domain/core"'}</span>;</p>
                 <br />
                 <p><span className="text-purple-400">export class</span> <span className="text-yellow-300">AndyGomez</span> <span className="text-purple-400">implements</span> <span className="text-cyan-300">Architect</span> {"{"}</p>
-                <p className="ml-4"><span className="text-purple-400">readonly</span> <span className="text-cyan-400">role</span> = <span className="text-green-400">"Full-Stack AI Developer"</span>;</p>
+                <p className="ml-4"><span className="text-purple-400">readonly</span> <span className="text-cyan-400">role</span> = <span className="text-green-400">{'"Full-Stack Developer"'}</span>;</p>
                 <p className="ml-4"><span className="text-purple-400">private</span> <span className="text-cyan-400">stack</span> = {"{"}</p>
-                <p className="ml-8">frontend: [<span className="text-green-400">"Next.js"</span>, <span className="text-green-400">"Tailwind"</span>],</p>
-                <p className="ml-8">backend:  [<span className="text-green-400">"Clean Arch"</span>, <span className="text-green-400">"TurboRepo"</span>],</p>
-                <p className="ml-8">ai_auto:  [<span className="text-green-400">"n8n"</span>, <span className="text-green-400">"Grok API"</span>, <span className="text-green-400">"Vercel AI"</span>]</p>
+                <p className="ml-8">frontend: [<span className="text-green-400">{'"Next.js"'}</span>, <span className="text-green-400">{'"Tailwind"'}</span>],</p>
+                <p className="ml-8">backend:  [<span className="text-green-400">{'"Clean Arch"'}</span>, <span className="text-green-400">{'"TurboRepo"'}</span>],</p>
+                <p className="ml-8">ai_tools: [<span className="text-green-400">{'"n8n"'}</span>, <span className="text-green-400">{'"LLM API"'}</span>, <span className="text-green-400">{'"Streaming"'}</span>]</p>
                 <p className="ml-4">{"}"};</p>
                 <br />
                 <p className="ml-4"><span className="text-blue-400">execute</span>(): <span className="text-cyan-300">ScaleableSystem</span> {"{"}</p>
-                <p className="ml-8"><span className="text-purple-400">return</span> <span className="text-blue-400">build</span>(<span className="text-orange-400">this</span>.stack).<span className="text-blue-400">deploy</span>(<span className="text-green-400">"Edge"</span>);</p>
+                <p className="ml-8"><span className="text-purple-400">return</span> <span className="text-blue-400">build</span>(<span className="text-orange-400">this</span>.stack).<span className="text-blue-400">deploy</span>(<span className="text-green-400">{'"Edge"'}</span>);</p>
                 <p className="ml-4">{"}"}</p>
                 <p>{"}"}</p>
               </div>

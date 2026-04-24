@@ -7,13 +7,13 @@ This version has breaking changes — APIs, conventions, and file structure may 
 # REPOSITORY RULES FOR AI AGENTS
 All AI agents working in this repository MUST STRICTLY FOLLOW these rules.
 
-## 1. Arquitectura y Estructura (Clean Architecture)
-- **Frontend (Next.js App Router):** 
+## 1. Arquitectura y Estructura
+- **Frontend (Next.js App Router):**
   - Todo el enrutamiento visual y páginas residen en `src/app`.
   - Componentes reutilizables de UI se estructuran en `src/components`, dividiéndose lógicamente (ej. `layout/`, `ui/`, `sections/`).
   - Utilidades, hooks y servicios, de existir, van en `src/lib`, `src/hooks`, y `src/services` respectivamente.
   - Usar siempre Client Components solo cuando sea estrictamente necesario (ej. interactividad, `useState`, `framer-motion`), manteniendo el resto como Server Components para optimizar carga visual y SEO.
-- **Backend (API Python):** Cualquier lógica de enrutamiento del backend simulado o real (IA, webhooks, bases de datos) debe estar encapsulada EXCLUSIVAMENTE en el directorio `/api/` usando Python (FastAPI). No crees endpoints `route.ts` de Next.js a menos que el usuario lo solicite expresamente; la convención de este router es usar el proxy inverso del backend `.py`.
+- **Backend (Next.js Route Handlers):** La lógica de servidor (IA, webhooks, integraciones) vive en `src/app/api/**/route.ts` y se ejecuta como funciones serverless en Vercel. Handlers delgados: validar entrada, delegar en `src/lib` o `src/services`, y devolver `Response` o streaming.
 
 ## 2. Pautas de Diseño y UI (AI Developer Aesthetic)
 - **Modo Oscuro como Predeterminado:** El diseño base asume que predominará una estética "cyber / dark mode".
@@ -23,4 +23,4 @@ All AI agents working in this repository MUST STRICTLY FOLLOW these rules.
 ## 3. Convenciones de Nomenclatura (Naming Conventions)
 - **Archivos y Carpetas Frontend:** Todas las carpetas y archivos en el frontend (React/Next.js/TypeScript) usarán `kebab-case`. Ejemplo: `mi-componente.tsx`, `mi-layout.tsx`. Esto asegura que las URLs de Next.js funcionen perfectamente para SEO.
 - **Definición de Componentes Estrictas:** El *nombre del componente interno* (la función/clase React) usará `PascalCase` (ej. `export function HeroSection() { ... }`). Nunca usar default export de funciones anónimas.
-- **Lógica Frontend (Variables/Funciones) y Backend (Python):** Usar `snake_case` para las variables, nombres de funciones lógicas en TypeScript, y para todo el backend en Python (nombres de archivo, endpoints y variables de Python).
+- **Lógica Frontend (Variables/Funciones):** Usar `snake_case` para las variables y nombres de funciones lógicas en TypeScript.
