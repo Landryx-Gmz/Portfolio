@@ -92,19 +92,22 @@ export function Hero() {
                   animate={{ height: 320, opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                  style={{ willChange: "height, opacity" }}
-                  className="relative w-full overflow-hidden rounded-t-3xl border border-b-0 border-white/10 shadow-[0_0_50px_rgba(6,182,212,0.15)]"
+                  style={{ willChange: "height, opacity", contain: "layout paint" }}
+                  className="relative w-full overflow-hidden rounded-t-3xl border border-b-0 border-white/10"
                 >
-                  <Image
-                    src="/profile_ultimate.png"
-                    alt="Andy Gomez"
-                    fill
-                    priority
-                    sizes="(max-width: 1024px) 100vw, 512px"
-                    className="object-cover"
-                  />
-                  {/* Degradado inferior para fundir con el bloque de código */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none z-10"></div>
+                  {/* Contenedor interno de altura fija: la imagen no recalcula layout en cada frame */}
+                  <div className="absolute inset-x-0 top-0 h-[320px]">
+                    <Image
+                      src="/profile_ultimate.png"
+                      alt="Andy Gomez"
+                      fill
+                      priority
+                      sizes="(max-width: 1024px) 100vw, 512px"
+                      className="object-cover"
+                    />
+                    {/* Degradado inferior para fundir con el bloque de código */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
