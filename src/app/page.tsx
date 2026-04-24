@@ -1,7 +1,6 @@
 import { Hero } from "@/components/sections/hero";
 import { Skills } from "@/components/sections/skills";
 import { Projects } from "@/components/sections/projects";
-import { Newsletter } from "@/components/sections/newsletter";
 import { Footer } from "@/components/layout/footer";
 
 export default function Home() {
@@ -10,7 +9,7 @@ export default function Home() {
       <Hero />
       <Skills />
       <Projects />
-      <Newsletter />
+      {/* <Newsletter /> — oculto hasta consolidar la integración de Formspark/n8n */}
       <Footer />
     </>
   );
