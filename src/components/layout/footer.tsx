@@ -65,18 +65,10 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-neutral-200 dark:border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="mt-16 pt-8 border-t border-neutral-200 dark:border-white/10 flex justify-center">
           <p className="text-xs text-neutral-500 dark:text-neutral-400 font-mono">
             © {new Date().getFullYear()} ANDY_AI_DEV. Todos los derechos reservados.
           </p>
-          <div className="flex items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400 font-mono">
-            <span>Powered by</span>
-            <span className="text-neutral-900 dark:text-white font-semibold">Next.js</span>
-            <span className="text-neutral-300 dark:text-neutral-700">|</span>
-            <span className="text-neutral-900 dark:text-white font-semibold">Groq AI</span>
-            <span className="text-neutral-300 dark:text-neutral-700">|</span>
-            <span className="text-neutral-900 dark:text-white font-semibold">Tailwind V4</span>
-          </div>
         </div>
       </div>
     </footer>
