@@ -66,9 +66,12 @@ export async function POST(req: Request) {
       );
     }
 
-    // Transformar el stream de Grok (SSE) a texto plano para el frontend
+    // Transformar el stream SSE de Groq a texto plano para el frontend.
+    // Mantenemos un buffer entre chunks: los mensajes SSE pueden llegar partidos
+    // por mitad de un JSON y, si los parseamos tal cual, perdemos caracteres.
     const reader = response.body?.getReader();
     const decoder = new TextDecoder();
+    const encoder = new TextEncoder();
 
     const stream = new ReadableStream({
       async start(controller) {
@@ -77,6 +80,8 @@ export async function POST(req: Request) {
           return;
         }
 
+        let buffer = "";
+
         while (true) {
           const { done, value } = await reader.read();
           if (done) {
@@ -84,25 +89,28 @@ export async function POST(req: Request) {
             break;
           }
 
-          const chunk = decoder.decode(value, { stream: true });
-          const lines = chunk.split("\n");
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          // La última línea puede estar incompleta: la devolvemos al buffer.
+          buffer = lines.pop() ?? "";
 
           for (const line of lines) {
-            if (line.startsWith("data: ")) {
-              const data = line.slice(6);
-              if (data === "[DONE]") {
-                controller.close();
-                return;
+            const trimmed = line.trim();
+            if (!trimmed.startsWith("data:")) continue;
+
+            const data = trimmed.slice(5).trim();
+            if (data === "[DONE]") {
+              controller.close();
+              return;
+            }
+            try {
+              const json = JSON.parse(data);
+              const token = json.choices?.[0]?.delta?.content;
+              if (token) {
+                controller.enqueue(encoder.encode(token));
               }
-              try {
-                const json = JSON.parse(data);
-                const token = json.choices?.[0]?.delta?.content;
-                if (token) {
-                  controller.enqueue(new TextEncoder().encode(token));
-                }
-              } catch {
-                // Ignorar líneas JSON inválidas
-              }
+            } catch {
+              // Línea SSE sin JSON válido: la descartamos.
             }
           }
         }
