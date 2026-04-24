@@ -50,13 +50,14 @@ export function Hero() {
                 Ver Proyectos
                 <ChevronRight className="ml-2 h-4 w-4" />
               </a>
-              <a
-                href="#chat"
-                className="inline-flex items-center justify-center h-12 px-6 rounded-md border border-neutral-300 dark:border-neutral-700 bg-white/50 dark:bg-neutral-900/50 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors font-medium backdrop-blur-sm"
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new Event("open-chatbot"))}
+                className="inline-flex items-center justify-center h-12 px-6 rounded-md border border-neutral-300 dark:border-neutral-700 bg-white/50 dark:bg-neutral-900/50 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors font-medium backdrop-blur-sm cursor-pointer"
               >
                 <Terminal className="mr-2 h-4 w-4 text-blue-500" />
                 Hablar con mi IA
-              </a>
+              </button>
             </div>
 
             <div className="flex items-center gap-6 text-neutral-500 dark:text-neutral-400">
