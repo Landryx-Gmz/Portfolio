@@ -54,6 +54,17 @@ const projects = [
       github: "https://github.com/Landryx-Gmz/Clean-Architecture-TypeScript"
     },
     featured: false
+  },
+  {
+    title: "AI Task Manager CLI",
+    type: "Intelligent CLI Tool",
+    description: "Gestor de tareas por línea de comandos que integra la API de OpenAI (GPT-3.5) para analizar objetivos complejos y desglosarlos automáticamente en subtareas accionables. Incluye persistencia en formato JSON y tests unitarios.",
+    emoji: "🧠",
+    tags: ["Python", "OpenAI API", "CLI", "Pytest", "JSON"],
+    links: {
+      github: "https://github.com/Landryx-Gmz/task-manager"
+    },
+    featured: false
   }
 ];
 
@@ -91,6 +102,7 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
+      style={{ position: "relative" }}
       className={`relative flex flex-col rounded-3xl overflow-hidden border border-neutral-200 dark:border-white/10 bg-white/40 dark:bg-black/40 backdrop-blur-xl shadow-lg transition-all hover:shadow-[0_0_40px_-10px_rgba(59,130,246,0.2)] ${project.featured ? 'lg:col-span-2 lg:flex-row' : 'h-full'}`}
     >
       {project.image && (
@@ -101,6 +113,7 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
                 src={project.image}
                 alt={project.title}
                 fill
+                priority={index === 0}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className={`${project.imageStyle} ${project.objectPosition} opacity-90 hover:opacity-100 transition-opacity duration-500`}
               />
@@ -168,7 +181,7 @@ export function Projects() {
       <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
       <div className="absolute bottom-1/4 left-0 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
 
-      <div className="container relative px-4 md:px-6">
+      <div className="container mx-auto relative px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
