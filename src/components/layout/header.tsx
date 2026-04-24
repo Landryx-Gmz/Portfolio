@@ -31,8 +31,8 @@ export function Header() {
             </div>
           </div>
           <nav className="hidden md:flex items-center gap-6">
-            <a href="#about" className="text-sm font-medium hover:text-blue-500 transition-colors">
-              Sobre mí
+            <a href="#" className="text-sm font-medium hover:text-blue-500 transition-colors">
+              Inicio
             </a>
             <a href="#skills" className="text-sm font-medium hover:text-blue-500 transition-colors">
               Tecnologías

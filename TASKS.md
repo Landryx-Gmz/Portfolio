@@ -23,8 +23,8 @@ Este documento rastrea las tareas de modernización, rediseño y nuevas caracter
 - [x] **Integración de API / Captación**: Conectado el formulario Frontend de forma asíncrona a un Endpoint centralizado (Formspark) preparado para desencadenar el flujo de orquestación de Leads (Notion -> n8n -> Resend).
 
 ## 🛠️ Fase 5: Refinamiento, Funcionalidad & Lanzamiento
-- [ ] **Visibilidad Newsletter**: Garantizar que la sección sea legible y estética en el **Tema Claro**.
-- [ ] **Navegación Header**: Mapear el botón "Sobre mí" para que funcione como botón de "Inicio".
+- [x] **Visibilidad Newsletter**: Garantizar que la sección sea legible y estética en el **Tema Claro**.
+- [x] **Navegación Header**: Mapear el botón "Sobre mí" para que funcione como botón de "Inicio".
 - [ ] **UX Tech Stack**: Alinear automáticamente la ventana entre el botón de la tecnología y su explicación al hacer clic.
 - [ ] **Jerarquía de Certificados**: Dar prioridad y orden específico a los certificados que aparecen debajo del principal.
 - [ ] **Mejora Asset Proyectos**: Optimizar la imagen del proyecto de Lidia Pérez para un acabado más profesional.

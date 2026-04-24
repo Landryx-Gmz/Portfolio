@@ -52,22 +52,22 @@ export function Newsletter() {
           transition={{ duration: 0.5 }}
           className="max-w-3xl mx-auto"
         >
-          <div className="p-8 md:p-12 rounded-3xl border border-white/5 bg-neutral-900/40 backdrop-blur-xl shadow-2xl relative overflow-hidden group">
+          <div className="p-8 md:p-12 rounded-3xl border border-neutral-200 dark:border-white/5 bg-white/40 dark:bg-neutral-900/40 backdrop-blur-xl shadow-2xl relative overflow-hidden group">
 
             {/* Ambient hover effect */}
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
             <div className="relative z-10 flex flex-col items-center text-center space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-neutral-300 shadow-inner">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-sm font-medium text-neutral-700 dark:text-neutral-300 shadow-inner">
                 <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_10px_rgba(6,182,212,0.8)]" />
                 Mi Filosofía de Trabajo
               </div>
 
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-2">
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white mb-2">
                 Programador de la Nueva Escuela
               </h2>
 
-              <div className="text-neutral-400 max-w-2xl text-lg md:text-xl leading-relaxed space-y-5">
+              <div className="text-neutral-600 dark:text-neutral-400 max-w-2xl text-lg md:text-xl leading-relaxed space-y-5">
                 <p>
                   Únete a mi newsletter. Aquí compartiré en abierto todos mis conocimientos, los nuevos aprendizajes que voy adquiriendo y las soluciones arquitectónicas reales que construyo.
                 </p>
@@ -85,7 +85,7 @@ export function Newsletter() {
                     placeholder="tu@email.com"
                     required
                     disabled={status === "loading" || status === "success"}
-                    className="w-full bg-black/40 border border-white/10 hover:border-white/20 rounded-full py-4 pl-6 pr-16 text-white placeholder:text-neutral-600 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all disabled:opacity-50"
+                    className="w-full bg-white/50 dark:bg-black/40 border border-neutral-300 dark:border-white/10 hover:border-neutral-400 dark:hover:border-white/20 rounded-full py-4 pl-6 pr-16 text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-600 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all disabled:opacity-50"
                   />
                   <button
                     type="submit"

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"next dev\" \"python3 -m venv .venv && . .venv/bin/activate && pip install -r api/requirements.txt && uvicorn api.index:app --host 127.0.0.1 --port 8000 --reload\"",
+    "dev": "concurrently \"next dev\" \"python -m venv .venv && .venv\\Scripts\\pip install -r api/requirements.txt && .venv\\Scripts\\uvicorn api.index:app --host 127.0.0.1 --port 8000 --reload\"",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
