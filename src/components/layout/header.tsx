@@ -42,10 +42,7 @@ export function Header() {
             </a>
           </nav>
           <div className="flex items-center gap-4">
-            {/* Oportunidad futura para Language Toggle */}
-            <button className="text-xs font-semibold px-2 py-1 rounded bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">
-              ES
-            </button>
+            {/* Language Toggle oculto hasta habilitar i18n (ES/EN) */}
             <ModeToggle />
           </div>
         </div>
