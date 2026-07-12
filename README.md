@@ -15,7 +15,7 @@ Portfolio personal de Andy Gomez, "Full-Stack AI Developer".
 
 ## Secciones
 
-- **Hero:** Presentación, rol ("AI Orchestrator") y foto desplegable sobre bloque de código animado.
+- **Hero:** Presentación, rol ("AI Integrator") y foto desplegable sobre bloque de código animado.
 - **Skills:** Stack tecnológico con tabs dinámicas y efecto destello.
 - **Proyectos:** Grid con parallax y menú expandible "Más proyectos".
 - **Certificaciones:** Drawer lateral con certificado destacado + resto.

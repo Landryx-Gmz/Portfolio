@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Award, Star, X } from "lucide-react";
+import { Award, Star, X, ArrowLeft } from "lucide-react";
 import { useEffect } from "react";
 
 interface Certificate {
@@ -131,6 +131,15 @@ export function CertificationsDrawer({ is_open, on_close }: CertificationsDrawer
             {/* Content */}
             <div className="flex-1 overflow-y-auto px-8 py-6 space-y-8">
 
+              {/* Back button — top of scrollable area */}
+              <button
+                onClick={on_close}
+                className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 backdrop-blur-md text-neutral-400 hover:text-white hover:border-cyan-500/40 hover:bg-cyan-500/10 hover:shadow-[0_0_20px_-5px_rgba(6,182,212,0.3)] transition-all duration-300"
+              >
+                <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" />
+                <span className="text-sm font-medium">Volver</span>
+              </button>
+
               {/* Featured Certificate */}
               {featured_cert && (
                 <div className="group relative rounded-2xl overflow-hidden border border-blue-500/30 bg-black/60 shadow-[0_0_40px_-10px_rgba(59,130,246,0.4)]">
@@ -191,6 +200,17 @@ export function CertificationsDrawer({ is_open, on_close }: CertificationsDrawer
                     </motion.div>
                   ))}
                 </div>
+              </div>
+
+              {/* Back button — bottom of scrollable area */}
+              <div className="pt-4 flex justify-center">
+                <button
+                  onClick={on_close}
+                  className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/60 hover:text-white hover:shadow-[0_0_25px_-5px_rgba(6,182,212,0.5)] transition-all duration-300 font-medium"
+                >
+                  <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" />
+                  <span>Volver</span>
+                </button>
               </div>
             </div>
           </motion.div>
