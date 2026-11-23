@@ -43,7 +43,7 @@ Hecho en `feat/rehacer-portfolio`: titular y textos nuevos, estructura (Hero, Pr
 
 Pendiente:
 - [ ] **Sobre mí:** añadir de dónde vengo, en una frase (`about-section.tsx`).
-- [ ] **Caso Mentoría Sana:** permiso por escrito de la clienta (nombre, web y cifra), comprobar que la cifra de +400 contactos en 4 días es exacta y de dónde sale, y ajustar «Lo que hice» a mi parte real.
+- [ ] **Caso Mentoría Sana:** permiso por escrito de la clienta (nombre, web y cifra), comprobar que la cifra de +400 contactos en las primeras semanas es exacta y de dónde sale, y ajustar «Lo que hice» a mi parte real.
 - [ ] **Insignia «Disponible para proyectos de automatización»:** mantenerla solo si es verdad.
 - [ ] **LinkedIn:** URL personalizada sin tildes y actualizar `src/lib/site.ts`.
 - [ ] **Nombre igual** en CV, GitHub y LinkedIn («Andrés Gómez»).

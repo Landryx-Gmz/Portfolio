@@ -11,6 +11,11 @@ interface Project {
   imageWidth: number;
   imageHeight: number;
   objectPosition: string;
+  // "contain" muestra la captura entera en escritorio (capturas verticales); en móvil se
+  // recorta según objectPosition. Por defecto se recorta siempre.
+  imageFit?: "cover" | "contain";
+  // Color de las franjas laterales cuando la captura se muestra entera (el fondo de la propia web).
+  imageBg?: string;
   tags: string[];
   live?: string;
 }
@@ -27,7 +32,7 @@ const PROJECTS: Project[] = [
       "Formulario de captación con Formspark.",
       "Automatización con n8n: cada formulario se guarda y avisa sin intervención.",
     ],
-    result: "Más de 400 contactos en los primeros 4 días tras el lanzamiento.",
+    result: "Más de 400 contactos en las primeras semanas tras el lanzamiento.",
     image: "/projects/lidia.png",
     imageAlt: "Captura de la web de Mentoría Sana",
     imageWidth: 1024,
@@ -50,9 +55,11 @@ const PROJECTS: Project[] = [
     result: "En producción desde noviembre de 2026, con la web y la API publicadas en el dominio de la agencia.",
     image: "/projects/jadixtech.webp",
     imageAlt: "Portada de JadixTech con un colibrí en 3D",
-    imageWidth: 1280,
-    imageHeight: 900,
-    objectPosition: "object-center",
+    imageWidth: 1055,
+    imageHeight: 1726,
+    objectPosition: "object-top",
+    imageFit: "contain",
+    imageBg: "bg-[#020817]",
     tags: ["Astro", "React Three Fiber", "TypeScript", "Hono", "Zod", "PostgreSQL", "Cloudflare Workers"],
     live: "https://jadixtech.com/",
   },
@@ -69,9 +76,11 @@ const PROJECTS: Project[] = [
     result: "Publicada en su dominio: el cliente recibe cada contacto sabiendo ya qué servicio le interesa.",
     image: "/projects/dagavision.webp",
     imageAlt: "Portada de DagaVision con un planeta en 3D",
-    imageWidth: 1843,
-    imageHeight: 847,
-    objectPosition: "object-[70%_50%]",
+    imageWidth: 1055,
+    imageHeight: 1650,
+    objectPosition: "object-top",
+    imageFit: "contain",
+    imageBg: "bg-[#06070a]",
     tags: ["Astro", "React Three Fiber", "Three.js", "TypeScript", "Tailwind CSS"],
     live: "https://dagavision.com/",
   },
@@ -80,7 +89,11 @@ const PROJECTS: Project[] = [
 function ProjectCard({ project }: { project: Project }) {
   return (
     <article className="flex flex-col lg:flex-row rounded-3xl overflow-hidden border border-neutral-200 dark:border-white/10 bg-white/40 dark:bg-black/40 backdrop-blur-xl shadow-lg transition-shadow hover:shadow-[0_0_40px_-10px_rgba(59,130,246,0.25)]">
-      <div className="relative lg:w-1/2 h-64 lg:h-auto lg:min-h-[380px] bg-neutral-100 dark:bg-[#020617] overflow-hidden">
+      <div
+        className={`relative lg:w-1/2 h-64 lg:h-auto lg:min-h-[380px] overflow-hidden ${
+          project.imageBg ?? "bg-neutral-100 dark:bg-[#020617]"
+        }`}
+      >
         <img
           src={project.image}
           alt={project.imageAlt}
@@ -88,7 +101,7 @@ function ProjectCard({ project }: { project: Project }) {
           decoding="async"
           width={project.imageWidth}
           height={project.imageHeight}
-          className={`absolute inset-0 h-full w-full object-cover ${project.objectPosition}`}
+          className={`absolute inset-0 h-full w-full object-cover ${project.objectPosition} ${project.imageFit === "contain" ? "lg:object-contain lg:object-center" : ""}`}
         />
       </div>
 

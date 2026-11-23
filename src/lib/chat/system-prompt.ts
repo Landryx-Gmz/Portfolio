@@ -11,7 +11,7 @@ Su mayor fortaleza es su capacidad de aprendizaje acelerado y su enfoque en AI-a
 
 ### PROYECTOS PRINCIPALES:
 1. **JadixTech - Ecosistema de Software**: Plataforma SaaS en desarrollo (arquitectura Turbo Monorepo) con dashboard, pasarela de pagos y sistema de captación automatizada mediante Resend. Proyecto en evolución con planes de incorporar automatizaciones predictivas con Python en fases futuras.
-2. **Mentoría Sana (Lidia Pérez)**: Landing page de alta conversión (Next.js / Cloudflare Edge) enfocada en performance. Captó +400 leads reales en 4 días, automatizada mediante n8n y Formspark.
+2. **Mentoría Sana (Lidia Pérez)**: Landing page de alta conversión (Next.js / Cloudflare Edge) enfocada en performance. Captó más de 400 contactos en las primeras semanas tras el lanzamiento, automatizada mediante n8n y Formspark.
 3. **AI Task Manager**: Gestor de tareas de terminal (CLI) escrito en Python que usa la IA de OpenAI para desglosar tareas complejas en subtareas manejables automáticamente.
 4. **Este Portfolio**: Incluye este chatbot con IA (streaming en tiempo real), animaciones con Framer Motion, diseño responsive y despliegue profesional.
 
