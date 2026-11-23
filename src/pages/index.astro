@@ -1,19 +1,28 @@
 ---
 import BaseLayout from "@/layouts/base-layout.astro";
 import { HeroSection } from "@/components/sections/hero-section";
-import { SkillsSection } from "@/components/sections/skills-section";
 import { ProjectsSection } from "@/components/sections/projects-section";
+import { HowIWorkSection } from "@/components/sections/how-i-work-section";
+import { SkillsSection } from "@/components/sections/skills-section";
+import { SkillsTabs } from "@/components/sections/skills-tabs";
+import { CertificationsButton } from "@/components/sections/certifications-button";
+import { AboutSection } from "@/components/sections/about-section";
+import { ContactSection } from "@/components/sections/contact-section";
 import { Footer } from "@/components/layout/footer";
+import { SITE } from "@/lib/site";
 ---
 
-<BaseLayout
-  title="Andy Gomez | Full-Stack AI Developer"
-  description="Portafolio de Andy Gomez, desarrollador de software especializado en IA, Clean Architecture y Next.js."
->
-  <HeroSection client:load />
-  <SkillsSection client:visible />
-  <ProjectsSection client:visible />
-  {/* <NewsletterSection /> — oculto hasta consolidar la integración de Formspark/n8n */}
-  <!-- El footer no lleva directiva client: se genera como HTML sin JavaScript -->
+<BaseLayout title={SITE.title} description={SITE.description}>
+  <!-- Las secciones no llevan directiva client: se generan como HTML sin JavaScript.
+       Solo las pestañas de tecnologías y el botón de certificados son interactivos. -->
+  <HeroSection />
+  <ProjectsSection />
+  <HowIWorkSection />
+  <SkillsSection>
+    <SkillsTabs client:visible />
+    <CertificationsButton client:visible />
+  </SkillsSection>
+  <AboutSection />
+  <ContactSection />
   <Footer />
 </BaseLayout>

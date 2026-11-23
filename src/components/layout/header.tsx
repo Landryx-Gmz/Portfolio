@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ModeToggle } from "@/components/layout/mode-toggle";
+import { SITE } from "@/lib/site";
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,26 +24,24 @@ export function Header() {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="font-mono text-xl font-bold tracking-tighter bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
-              ANDY_AI_DEV
-            </div>
-          </div>
-          <nav className="hidden md:flex items-center gap-6">
-            <a href="#" className="text-sm font-medium hover:text-blue-500 transition-colors">
-              Inicio
-            </a>
-            <a href="#skills" className="text-sm font-medium hover:text-blue-500 transition-colors">
-              Tecnologías
-            </a>
-            <a href="#projects" className="text-sm font-medium hover:text-blue-500 transition-colors">
+          <a
+            href="#top"
+            className="text-base sm:text-xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-300 bg-clip-text text-transparent"
+          >
+            {SITE.name}
+          </a>
+          <nav aria-label="Principal" className="flex items-center gap-3 sm:gap-6">
+            <a href="#projects" className="text-xs sm:text-sm font-medium hover:text-blue-500 transition-colors">
               Proyectos
             </a>
+            <a href="#about" className="text-xs sm:text-sm font-medium hover:text-blue-500 transition-colors">
+              Sobre mí
+            </a>
+            <a href="#contact" className="text-xs sm:text-sm font-medium hover:text-blue-500 transition-colors">
+              Contacto
+            </a>
           </nav>
-          <div className="flex items-center gap-4">
-            {/* Language Toggle oculto hasta habilitar i18n (ES/EN) */}
-            <ModeToggle />
-          </div>
+          <ModeToggle />
         </div>
       </div>
     </header>
