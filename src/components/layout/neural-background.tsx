@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useRef } from "react";
 
 class Particle {
@@ -46,10 +44,10 @@ export function NeuralNetworkBackground() {
     let animationFrameId: number;
     let particles: Particle[] = [];
 
-    const init_particles = () => {
+    const initParticles = () => {
       particles = [];
-      const num_particles = Math.floor((canvas.width * canvas.height) / 15000);
-      for (let i = 0; i < num_particles; i++) {
+      const numParticles = Math.floor((canvas.width * canvas.height) / 15000);
+      for (let i = 0; i < numParticles; i++) {
         particles.push(new Particle(canvas.width, canvas.height));
       }
     };
@@ -57,20 +55,22 @@ export function NeuralNetworkBackground() {
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      init_particles();
+      initParticles();
     };
 
-    const draw_connections = () => {
+    const drawConnections = () => {
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
+          const a = particles[i]!;
+          const b = particles[j]!;
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
 
           if (distance < 150) {
             ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
 
             const opacity = 1 - distance / 150;
             ctx.strokeStyle = `rgba(59, 130, 246, ${opacity * 0.35})`;
@@ -89,7 +89,7 @@ export function NeuralNetworkBackground() {
         particle.draw(ctx);
       });
 
-      draw_connections();
+      drawConnections();
 
       animationFrameId = requestAnimationFrame(animate);
     };

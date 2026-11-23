@@ -1,11 +1,9 @@
-"use client";
-
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { ExternalLink, Github, ChevronDown } from "lucide-react";
-import Image from "next/image";
+import { ExternalLink, ChevronDown } from "lucide-react";
+import { Github } from "@/components/icons/brand-icons";
 
-const projects = [
+const PROJECTS = [
   {
     title: "JadixTech - Ecosistema de Software",
     type: "SaaS Platform & AI Automation",
@@ -86,9 +84,9 @@ interface Project {
 }
 
 function ProjectCard({ project, index }: { project: Project, index: number }) {
-  const container_ref = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    target: container_ref,
+    target: containerRef,
     offset: ["start end", "end start"]
   });
 
@@ -97,7 +95,7 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
 
   return (
     <motion.div
-      ref={container_ref}
+      ref={containerRef}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -109,13 +107,10 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
         <div className={`relative bg-neutral-100 dark:bg-[#020617] overflow-hidden ${project.featured ? 'lg:w-1/2 min-h-[300px] lg:min-h-[400px]' : 'h-64'}`}>
           <a href={project.links.live || project.links.github} target={project.links.github?.startsWith('mailto:') ? '_self' : '_blank'} rel="noreferrer" className="block w-full h-full">
             <motion.div style={{ y }} className="absolute inset-0 w-full h-[120%] -top-[10%]">
-              <Image
+              <img
                 src={project.image}
                 alt={project.title}
-                fill
-                priority={index === 0}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className={`${project.imageStyle} ${project.objectPosition} opacity-90 hover:opacity-100 transition-opacity duration-500`}
+                className={`absolute inset-0 h-full w-full ${project.imageStyle} ${project.objectPosition} opacity-90 hover:opacity-100 transition-opacity duration-500`}
               />
             </motion.div>
           </a>
@@ -170,10 +165,10 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
   );
 }
 
-export function Projects() {
+export function ProjectsSection() {
   const [showMore, setShowMore] = useState(false);
-  const featuredProjects = projects.filter(p => p.featured);
-  const otherProjects = projects.filter(p => !p.featured);
+  const featuredProjects = PROJECTS.filter(p => p.featured);
+  const otherProjects = PROJECTS.filter(p => !p.featured);
 
   return (
     <section id="projects" className="py-24 relative overflow-hidden">

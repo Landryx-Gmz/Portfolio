@@ -1,7 +1,4 @@
-"use client";
-
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import { Award, Star, X, ArrowLeft } from "lucide-react";
 import { useEffect } from "react";
 
@@ -13,7 +10,7 @@ interface Certificate {
   featured?: boolean;
 }
 
-const certifications: Certificate[] = [
+const CERTIFICATIONS: Certificate[] = [
   {
     id: "bigmaster-ia",
     title: "Máster en Desarrollo de Software con IA",
@@ -65,33 +62,33 @@ const certifications: Certificate[] = [
   },
 ];
 
-const featured_cert = certifications.find((c) => c.featured);
-const rest_certs = certifications.filter((c) => !c.featured);
+const featuredCert = CERTIFICATIONS.find((c) => c.featured);
+const restCerts = CERTIFICATIONS.filter((c) => !c.featured);
 
 interface CertificationsDrawerProps {
-  is_open: boolean;
-  on_close: () => void;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-export function CertificationsDrawer({ is_open, on_close }: CertificationsDrawerProps) {
+export function CertificationsDrawer({ isOpen, onClose }: CertificationsDrawerProps) {
   // Cerrar con ESC
   useEffect(() => {
-    const handle_key = (e: KeyboardEvent) => {
-      if (e.key === "Escape") on_close();
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
     };
-    window.addEventListener("keydown", handle_key);
-    return () => window.removeEventListener("keydown", handle_key);
-  }, [on_close]);
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [onClose]);
 
   // Bloquear scroll del body cuando el drawer está abierto
   useEffect(() => {
-    document.body.style.overflow = is_open ? "hidden" : "";
+    document.body.style.overflow = isOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
-  }, [is_open]);
+  }, [isOpen]);
 
   return (
     <AnimatePresence>
-      {is_open && (
+      {isOpen && (
         <>
           {/* Backdrop */}
           <motion.div
@@ -100,7 +97,7 @@ export function CertificationsDrawer({ is_open, on_close }: CertificationsDrawer
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            onClick={on_close}
+            onClick={onClose}
             className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm"
           />
 
@@ -120,7 +117,7 @@ export function CertificationsDrawer({ is_open, on_close }: CertificationsDrawer
                 <p className="text-sm text-neutral-400 mt-0.5">Formación y logros validados</p>
               </div>
               <button
-                onClick={on_close}
+                onClick={onClose}
                 className="p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
                 aria-label="Cerrar"
               >
@@ -133,7 +130,7 @@ export function CertificationsDrawer({ is_open, on_close }: CertificationsDrawer
 
               {/* Back button — top of scrollable area */}
               <button
-                onClick={on_close}
+                onClick={onClose}
                 className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 backdrop-blur-md text-neutral-400 hover:text-white hover:border-cyan-500/40 hover:bg-cyan-500/10 hover:shadow-[0_0_20px_-5px_rgba(6,182,212,0.3)] transition-all duration-300"
               >
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" />
@@ -141,26 +138,26 @@ export function CertificationsDrawer({ is_open, on_close }: CertificationsDrawer
               </button>
 
               {/* Featured Certificate */}
-              {featured_cert && (
+              {featuredCert && (
                 <div className="group relative rounded-2xl overflow-hidden border border-blue-500/30 bg-black/60 shadow-[0_0_40px_-10px_rgba(59,130,246,0.4)]">
                   <div className="absolute top-4 left-4 z-10 inline-flex items-center gap-1.5 bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded-full">
                     <Star className="w-3 h-3 fill-white" />
                     Certificación Destacada
                   </div>
                   <div className="relative w-full h-56">
-                    <Image
-                      src={featured_cert.image}
-                      alt={featured_cert.title}
-                      fill
-                      className="object-contain p-6 group-hover:scale-105 transition-transform duration-500"
+                    <img
+                      src={featuredCert.image}
+                      alt={featuredCert.title}
+                      className="absolute inset-0 h-full w-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
                     />
                   </div>
                   <div className="px-6 pb-6">
                     <div className="inline-flex items-center text-xs font-mono text-blue-400 bg-blue-400/10 px-2 py-1 rounded border border-blue-400/20 mb-2">
                       <Award className="w-3 h-3 mr-1" />
-                      {featured_cert.issuer}
+                      {featuredCert.issuer}
                     </div>
-                    <h3 className="text-xl font-bold text-white">{featured_cert.title}</h3>
+                    <h3 className="text-xl font-bold text-white">{featuredCert.title}</h3>
                     <p className="text-sm text-neutral-400 mt-2">
                       Formación intensiva en desarrollo de software aplicando IA como herramienta central en el ciclo completo de desarrollo.
                     </p>
@@ -174,7 +171,7 @@ export function CertificationsDrawer({ is_open, on_close }: CertificationsDrawer
                   Otras certificaciones
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
-                  {rest_certs.map((cert, index) => (
+                  {restCerts.map((cert, index) => (
                     <motion.div
                       key={cert.id}
                       initial={{ opacity: 0, y: 10 }}
@@ -183,11 +180,11 @@ export function CertificationsDrawer({ is_open, on_close }: CertificationsDrawer
                       className="group p-4 rounded-xl border border-white/5 bg-white/[0.03] hover:border-blue-500/30 hover:bg-blue-500/5 transition-all duration-300"
                     >
                       <div className="relative w-full h-24 mb-3 rounded-lg overflow-hidden bg-white/5">
-                        <Image
+                        <img
                           src={cert.image}
                           alt={cert.title}
-                          fill
-                          className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
+                          className="absolute inset-0 h-full w-full object-contain p-2 group-hover:scale-105 transition-transform duration-300"
+                          loading="lazy"
                         />
                       </div>
                       <div className="inline-flex items-center text-[10px] font-mono text-blue-400/70 bg-blue-400/5 px-2 py-0.5 rounded border border-blue-400/10 mb-1.5">
@@ -205,7 +202,7 @@ export function CertificationsDrawer({ is_open, on_close }: CertificationsDrawer
               {/* Back button — bottom of scrollable area */}
               <div className="pt-4 flex justify-center">
                 <button
-                  onClick={on_close}
+                  onClick={onClose}
                   className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400/60 hover:text-white hover:shadow-[0_0_25px_-5px_rgba(6,182,212,0.5)] transition-all duration-300 font-medium"
                 >
                   <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" />
