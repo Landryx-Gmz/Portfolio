@@ -19,13 +19,13 @@ export function AboutSection() {
             <div className="space-y-4 text-neutral-600 dark:text-neutral-300 md:text-lg leading-relaxed">
               {/* PENDIENTE: añadir de dónde vengo, en una frase (ver docs/TODO.md). */}
               <p>
-                Me dedico a automatizar procesos y construir webs, también en 3D, para cualquier tipo de negocio. Me gusta entender
-                lo que necesita un negocio antes de pensar en la tecnología.
+                Automatizo procesos y construyo webs, también en 3D, para pequeños negocios y profesionales. Me
+                gusta entender qué necesita un negocio antes de pensar en la tecnología.
               </p>
               <p>
-                Automatizo procesos con n8n y TypeScript, creo APIs propias con Hono y bases de datos con
-                PostgreSQL, construyo webs con Astro y React, y las publico en Cloudflare. Todo adaptado a lo
-                que necesita cada proyecto.
+                Trabajo con n8n y TypeScript, y desarrollo con ayuda de agentes de IA, revisando todo lo que
+                generan antes de que llegue a producción. Ahora mismo estoy construyendo el panel de gestión de
+                clientes de JadixTech, sobre su propia API.
               </p>
             </div>
           </div>

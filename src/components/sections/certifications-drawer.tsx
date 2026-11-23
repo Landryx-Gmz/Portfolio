@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Award, Star, X, ArrowLeft } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 
 interface Certificate {
   id: string;
@@ -19,16 +20,10 @@ const CERTIFICATIONS: Certificate[] = [
     featured: true,
   },
   {
-    id: "ibm-python",
-    title: "Conceptos Básicos de Python",
-    issuer: "IBM SkillsBuild",
-    image: "/certificates/ibm-python.png",
-  },
-  {
-    id: "ibm-poo-python",
-    title: "POO con Python",
-    issuer: "IBM SkillsBuild",
-    image: "/certificates/ibm-poo-python.png",
+    id: "programador-sistemas",
+    title: "Programador de Sistemas Informáticos",
+    issuer: "Formación Oficial",
+    image: "/certificates/programador-sistemas.png",
   },
   {
     id: "fastapi-udemy",
@@ -55,15 +50,24 @@ const CERTIFICATIONS: Certificate[] = [
     image: "/certificates/ibm-git.png",
   },
   {
-    id: "programador-sistemas",
-    title: "Programador de Sistemas Informáticos",
-    issuer: "Formación Oficial",
-    image: "/certificates/programador-sistemas.png",
+    id: "ibm-python",
+    title: "Conceptos Básicos de Python",
+    issuer: "IBM SkillsBuild",
+    image: "/certificates/ibm-python.png",
+  },
+  {
+    id: "ibm-poo-python",
+    title: "POO con Python",
+    issuer: "IBM SkillsBuild",
+    image: "/certificates/ibm-poo-python.png",
   },
 ];
 
 const featuredCert = CERTIFICATIONS.find((c) => c.featured);
 const restCerts = CERTIFICATIONS.filter((c) => !c.featured);
+
+// No hay nada a lo que suscribirse: solo distingue servidor (false) y navegador (true).
+const subscribeNoop = () => () => {};
 
 interface CertificationsDrawerProps {
   isOpen: boolean;
@@ -80,13 +84,19 @@ export function CertificationsDrawer({ isOpen, onClose }: CertificationsDrawerPr
     return () => window.removeEventListener("keydown", handleKey);
   }, [onClose]);
 
+  // El panel se dibuja en <body> con un portal para quedar por encima de la
+  // cabecera fija y no recortarse dentro de la sección. Solo existe en el navegador.
+  const mounted = useSyncExternalStore(subscribeNoop, () => true, () => false);
+
   // Bloquear scroll del body cuando el drawer está abierto
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <>
@@ -98,7 +108,7 @@ export function CertificationsDrawer({ isOpen, onClose }: CertificationsDrawerPr
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={onClose}
-            className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm"
+            className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm"
           />
 
           {/* Drawer Panel */}
@@ -108,17 +118,21 @@ export function CertificationsDrawer({ isOpen, onClose }: CertificationsDrawerPr
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
-            className="fixed inset-y-0 right-0 z-50 w-full max-w-2xl flex flex-col bg-neutral-950 border-l border-white/10 shadow-2xl"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="certifications-title"
+            className="fixed inset-y-0 right-0 z-[70] w-full max-w-2xl flex flex-col overflow-x-hidden bg-neutral-950 border-l border-white/10 shadow-2xl"
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-8 py-6 border-b border-white/10 flex-shrink-0">
+            <div className="flex items-center justify-between gap-4 px-4 sm:px-8 py-5 sm:py-6 border-b border-white/10 flex-shrink-0">
               <div>
-                <h2 className="text-2xl font-bold text-white">Certificaciones</h2>
-                <p className="text-sm text-neutral-400 mt-0.5">Formación y logros validados</p>
+                <h2 id="certifications-title" className="text-2xl font-bold text-white">Certificaciones</h2>
+                <p className="text-sm text-neutral-400 mt-0.5">Formación y cursos</p>
               </div>
               <button
+                type="button"
                 onClick={onClose}
-                className="p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
+                className="shrink-0 p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
                 aria-label="Cerrar"
               >
                 <X className="w-5 h-5" />
@@ -126,7 +140,7 @@ export function CertificationsDrawer({ isOpen, onClose }: CertificationsDrawerPr
             </div>
 
             {/* Content */}
-            <div className="flex-1 overflow-y-auto px-8 py-6 space-y-8">
+            <div className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden px-4 sm:px-8 py-6 space-y-8">
 
               {/* Back button — top of scrollable area */}
               <button
@@ -144,11 +158,11 @@ export function CertificationsDrawer({ isOpen, onClose }: CertificationsDrawerPr
                     <Star className="w-3 h-3 fill-white" />
                     Certificación Destacada
                   </div>
-                  <div className="relative w-full h-56">
+                  <div className="relative w-full h-44 sm:h-56">
                     <img
                       src={featuredCert.image}
                       alt={featuredCert.title}
-                      className="absolute inset-0 h-full w-full object-contain p-6 group-hover:scale-105 transition-transform duration-500"
+                      className="absolute inset-0 h-full w-full object-contain p-4 sm:p-6 group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
                   </div>
@@ -170,14 +184,14 @@ export function CertificationsDrawer({ isOpen, onClose }: CertificationsDrawerPr
                 <h3 className="text-xs font-mono text-neutral-500 uppercase tracking-widest mb-4">
                   Otras certificaciones
                 </h3>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {restCerts.map((cert, index) => (
                     <motion.div
                       key={cert.id}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.1 + index * 0.05 }}
-                      className="group p-4 rounded-xl border border-white/5 bg-white/[0.03] hover:border-blue-500/30 hover:bg-blue-500/5 transition-all duration-300"
+                      className="group min-w-0 p-4 rounded-xl border border-white/5 bg-white/[0.03] hover:border-blue-500/30 hover:bg-blue-500/5 transition-all duration-300"
                     >
                       <div className="relative w-full h-24 mb-3 rounded-lg overflow-hidden bg-white/5">
                         <img
@@ -213,6 +227,7 @@ export function CertificationsDrawer({ isOpen, onClose }: CertificationsDrawerPr
           </motion.div>
         </>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }
