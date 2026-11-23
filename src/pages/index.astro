@@ -1,0 +1,19 @@
+---
+import BaseLayout from "@/layouts/base-layout.astro";
+import { HeroSection } from "@/components/sections/hero-section";
+import { SkillsSection } from "@/components/sections/skills-section";
+import { ProjectsSection } from "@/components/sections/projects-section";
+import { Footer } from "@/components/layout/footer";
+---
+
+<BaseLayout
+  title="Andy Gomez | Full-Stack AI Developer"
+  description="Portafolio de Andy Gomez, desarrollador de software especializado en IA, Clean Architecture y Next.js."
+>
+  <HeroSection client:load />
+  <SkillsSection client:visible />
+  <ProjectsSection client:visible />
+  {/* <NewsletterSection /> — oculto hasta consolidar la integración de Formspark/n8n */}
+  <!-- El footer no lleva directiva client: se genera como HTML sin JavaScript -->
+  <Footer />
+</BaseLayout>

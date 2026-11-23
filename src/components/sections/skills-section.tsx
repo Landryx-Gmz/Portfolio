@@ -1,11 +1,9 @@
-"use client";
-
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BrainCircuit, Server, Layout, Award, Zap, Cloud } from "lucide-react";
 import { CertificationsDrawer } from "@/components/sections/certifications-drawer";
 
-const skills = [
+const SKILLS = [
   {
     category: "Frontend & UI",
     icon: <Layout className="w-6 h-6 mb-4 text-cyan-500" />,
@@ -33,8 +31,8 @@ const skills = [
   }
 ];
 
-export function Skills() {
-  const [drawer_open, set_drawer_open] = useState(false);
+export function SkillsSection() {
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<number | null>(null);
 
   return (
@@ -59,7 +57,7 @@ export function Skills() {
           <div className="flex flex-col items-center">
             {/* Menú de Píldoras */}
             <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-10 max-w-4xl">
-              {skills.map((skill, index) => {
+              {SKILLS.map((skill, index) => {
                 const isActive = activeTab === index;
                 const showSpark = !isActive && activeTab === null; // Solo muestra destellos si no hay nada seleccionado
                 
@@ -116,7 +114,7 @@ export function Skills() {
                       transition={{ duration: 0.3 }}
                       className="flex flex-wrap justify-center gap-4"
                     >
-                      {skills[activeTab].items.map((item, i) => (
+                      {SKILLS[activeTab]?.items.map((item, i) => (
                         <motion.div
                           key={item}
                           initial={{ opacity: 0, y: 15 }}
@@ -143,7 +141,7 @@ export function Skills() {
             className="flex justify-center mt-12"
           >
             <button
-              onClick={() => set_drawer_open(true)}
+              onClick={() => setDrawerOpen(true)}
               className="group inline-flex items-center gap-3 px-6 py-3 rounded-xl border border-blue-500/30 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 hover:border-blue-400/60 hover:text-white hover:shadow-[0_0_25px_-5px_rgba(59,130,246,0.5)] transition-all duration-300 font-medium"
             >
               <Award className="w-5 h-5 group-hover:scale-110 transition-transform" />
@@ -154,7 +152,7 @@ export function Skills() {
       </section>
 
       {/* Drawer deslizante */}
-      <CertificationsDrawer is_open={drawer_open} on_close={() => set_drawer_open(false)} />
+      <CertificationsDrawer isOpen={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </>
   );
 }

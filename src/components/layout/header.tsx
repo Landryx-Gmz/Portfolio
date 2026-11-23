@@ -1,24 +1,22 @@
-"use client";
-
 import { useEffect, useState } from "react";
-import { ModeToggle } from "./mode-toggle";
+import { ModeToggle } from "@/components/layout/mode-toggle";
 
 export function Header() {
-  const [is_scrolled, set_is_scrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handle_scroll = () => {
-      set_is_scrolled(window.scrollY > 10);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
     };
 
-    window.addEventListener("scroll", handle_scroll);
-    return () => window.removeEventListener("scroll", handle_scroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <header
       className={`fixed top-0 w-full z-50 transition-all duration-300 border-b ${
-        is_scrolled
+        isScrolled
           ? "bg-white/80 dark:bg-neutral-950/80 backdrop-blur-md border-neutral-200 dark:border-neutral-800 shadow-sm"
           : "bg-transparent border-transparent"
       }`}
