@@ -37,3 +37,17 @@ Este documento rastrea las tareas de modernización, rediseño y nuevas caracter
 ## 🔧 Fase 6: Post-Lanzamiento & Mejoras Continuas
 - [ ] **Animación Foto Desarrollador en Móvil**: Revisar y pulir el despliegue de la foto sobre el bloque de código en el Hero para que en dispositivos móviles se sienta tan fluido como en desktop. Contexto: actualmente se anima `height` (reflow costoso) + `<Image fill>` (re-layout por frame); se mitigó con contenedor interno de altura fija, `contain: layout paint` y eliminación de la sombra, pero aún puede quedar pequeño saltito en gamas bajas. Explorar alternativa con `transform` puro (scaleY con `transform-origin: top` o traslación con clip) o animación por `grid-template-rows` para evitar por completo el layout trigger.
 - [ ] **Refinamiento del Chatbot (AndyAI)**: Mejorar el System Prompt para que, ante preguntas irrelevantes o fuera de contexto (temas que no tengan que ver con Andy, su carrera o proyectos), responda con respeto indicando que su propósito es exclusivamente asistir en temas relacionados con el perfil profesional de Andy.
+
+## 🔁 Fase 7: Rehacer el portfolio (enfoque automatización)
+Hecho en `feat/rehacer-portfolio`: titular y textos nuevos, estructura (Hero, Proyectos, Cómo trabajo, Tecnologías, Sobre mí, Contacto, Pie), nombre «Andrés Gómez» en toda la web, título y descripción, imagen para compartir (`public/og.png`), favicon `AG`, chatbot y proyectos sin defender retirados, secciones sin JavaScript salvo tema y certificados.
+
+Pendiente:
+- [ ] **Sobre mí:** añadir de dónde vengo, en una frase (`about-section.tsx`).
+- [ ] **Caso Mentoría Sana:** permiso por escrito de la clienta (nombre, web y cifra), comprobar que la cifra de +400 contactos en 4 días es exacta y de dónde sale, y ajustar «Lo que hice» a mi parte real.
+- [ ] **Insignia «Disponible para proyectos de automatización»:** mantenerla solo si es verdad.
+- [ ] **LinkedIn:** URL personalizada sin tildes y actualizar `src/lib/site.ts`.
+- [ ] **Nombre igual** en CV, GitHub y LinkedIn («Andrés Gómez»).
+- [ ] **Vercel:** renombrar el proyecto `adnygomezdev` (errata).
+- [ ] **Comprobar en incógnito** y **Lighthouse** (>90 en rendimiento y accesibilidad) tras publicar.
+- [ ] **Demo de automatización** (citas por WhatsApp para un gimnasio): vídeo, capturas del flujo y repo con el JSON sin credenciales.
+- [ ] **Chatbot:** volver a mostrarlo cuando funcione (`base-layout.astro`).

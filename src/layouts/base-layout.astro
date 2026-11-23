@@ -2,7 +2,6 @@
 import "@/styles/global.css";
 import { Header } from "@/components/layout/header";
 import { NeuralNetworkBackground } from "@/components/layout/neural-background";
-import { Chatbot } from "@/components/chat/chatbot";
 
 interface Props {
   title: string;
@@ -21,13 +20,20 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#0a0a0a" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL("/profile_ultimate.png", Astro.site)} />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:image" content={new URL("/og.png", Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Andrés Gómez · Automatización e integraciones con n8n y TypeScript" />
+    <meta name="twitter:card" content="summary_large_image" />
     <!-- Aplica el tema guardado antes de pintar (por defecto, oscuro) -->
     <script is:inline>
       (() => {
@@ -54,6 +60,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <main class="pt-16 relative z-10">
       <slot />
     </main>
-    <Chatbot client:idle />
+    <!-- Chatbot oculto hasta que el asistente esté listo (código en components/chat/). -->
   </body>
 </html>
