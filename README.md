@@ -6,54 +6,54 @@ Portfolio personal de Andy Gomez, "Full-Stack AI Developer".
 
 ## Stack
 
-- **Framework:** Next.js 16 (App Router) + React 19 + TypeScript.
-- **Estilos:** Tailwind CSS 4 + `tw-animate-css`.
-- **Animaciones:** Framer Motion.
-- **Iconos:** Lucide React.
-- **IA:** Chatbot con streaming SSE vía API de Groq (`llama-3.3-70b-versatile`).
-- **Deploy:** Vercel (route handlers como funciones serverless).
+- **Web:** Astro 7 + islas de React 19 + TypeScript estricto.
+- **Estilos:** Tailwind CSS 4 + `tw-animate-css`. Fuentes con Fontsource.
+- **Animaciones:** Framer Motion (dentro de las islas).
+- **Iconos:** Lucide React + logos de marca en SVG propio.
+- **API:** Hono + Zod en `/api/*` (función serverless de Vercel).
+- **IA:** Chatbot con streaming vía API de Groq (`llama-3.3-70b-versatile`).
+- **Pruebas:** Vitest. **Deploy:** Vercel (`@astrojs/vercel`).
 
 ## Secciones
 
-- **Hero:** Presentación, rol ("AI Orchestrator") y foto desplegable sobre bloque de código animado.
+- **Hero:** Presentación, rol ("AI Integrator") y foto desplegable sobre bloque de código animado.
 - **Skills:** Stack tecnológico con tabs dinámicas y efecto destello.
 - **Proyectos:** Grid con parallax y menú expandible "Más proyectos".
 - **Certificaciones:** Drawer lateral con certificado destacado + resto.
 - **Chatbot:** Asistente flotante con streaming SSE en tiempo real, activable desde el botón "Hablar con mi IA" del Hero.
 - **Footer:** Branding, enlaces y redes.
 
-> La sección **Newsletter** existe en `src/components/sections/newsletter.tsx` pero está oculta en `src/app/page.tsx` hasta consolidar la integración Formspark + n8n.
+> La sección **Newsletter** existe en `src/components/sections/newsletter-section.tsx` pero está oculta en `src/pages/index.astro` hasta consolidar la integración Formspark + n8n.
 
-## Desarrollo Local
+## Desarrollo local
 
-1. Instalar dependencias: `npm install`
-2. Crear `.env.local` en la raíz con tu clave de Groq:
-   ```
-   GROQ_API_KEY=gsk_...
-   ```
-3. Levantar el servidor: `npm run dev`
-
-El endpoint del chatbot vive en [`src/app/api/chat/route.ts`](src/app/api/chat/route.ts).
+1. Instalar dependencias: `pnpm install` (Node 24, ver `.node-version`).
+2. Crear `.env` en la raíz con `GROQ_API_KEY=...` (sin ella, el chat responde 503).
+3. Levantar el servidor: `pnpm dev`.
+4. Antes de un PR: `pnpm check-all`.
 
 ## Despliegue
 
-Deploy en **Vercel**. No requiere configuración extra: las route handlers de Next.js se despliegan automáticamente como funciones serverless. Recuerda configurar `GROQ_API_KEY` en las variables de entorno del proyecto en Vercel.
+Vercel detecta Astro automáticamente. Hay que configurar `GROQ_API_KEY` en las variables de entorno del proyecto en Vercel. Las páginas se sirven como HTML estático y solo `/api/*` se ejecuta como función.
 
 ## Estructura
 
 ```
 src/
-  app/
-    api/chat/route.ts     # Endpoint del chatbot (streaming Groq)
-    layout.tsx            # Root layout + ThemeProvider + fondo neural + chatbot
-    page.tsx              # Home: ensambla las secciones
-    globals.css           # Tailwind + variables de tema
-    icon.png              # Favicon
+  pages/
+    index.astro           # Home: ensambla las secciones
+    api/[...path].ts      # Monta la API Hono (único código de servidor)
+  layouts/base-layout.astro  # SEO, tema, fondo neural, cabecera y chatbot
   components/
     chat/chatbot.tsx      # Asistente flotante
+    icons/brand-icons.tsx # Logos de GitHub y LinkedIn
     layout/               # header, footer, mode-toggle, neural-background
-    sections/             # hero, skills, projects, certifications-drawer, newsletter
-    theme-provider.tsx    # Wrapper de next-themes
+    sections/             # hero-section, skills-section, projects-section, certifications-drawer, newsletter-section
+  lib/
+    api/app.ts            # Rutas Hono: /api/health y /api/chat
+    chat/                 # Esquema Zod, prompt y streaming de Groq
+  styles/global.css       # Tailwind + variables de tema
+tests/                    # Vitest
 ```
 
-Convenciones: `kebab-case` para archivos, `PascalCase` para componentes, `snake_case` para variables/funciones lógicas. Ver [`AGENTS.md`](AGENTS.md) para detalles.
+Pendientes en [`docs/TODO.md`](docs/TODO.md). Convenciones en [`AGENTS.md`](AGENTS.md).

@@ -1,0 +1,59 @@
+---
+import "@/styles/global.css";
+import { Header } from "@/components/layout/header";
+import { NeuralNetworkBackground } from "@/components/layout/neural-background";
+import { Chatbot } from "@/components/chat/chatbot";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="es" class="dark scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL("/profile_ultimate.png", Astro.site)} />
+    <!-- Aplica el tema guardado antes de pintar (por defecto, oscuro) -->
+    <script is:inline>
+      (() => {
+        let theme = null;
+        try {
+          theme = localStorage.getItem("theme");
+        } catch {
+          // Sin localStorage: se usa el tema por defecto.
+        }
+        const isDark =
+          theme === "light" ? false
+          : theme === "system" ? matchMedia("(prefers-color-scheme: dark)").matches
+          : true;
+        document.documentElement.classList.toggle("dark", isDark);
+      })();
+    </script>
+  </head>
+  <body
+    id="top"
+    class="font-sans antialiased min-h-screen bg-neutral-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-50"
+  >
+    <NeuralNetworkBackground client:idle />
+    <Header client:load />
+    <main class="pt-16 relative z-10">
+      <slot />
+    </main>
+    <Chatbot client:idle />
+  </body>
+</html>

@@ -33,3 +33,7 @@ Este documento rastrea las tareas de modernización, rediseño y nuevas caracter
 - [x] **Identidad Visual**: Crear e integrar el Favicon del sitio.
 - [ ] **Configuración Newsletter**: Crear y validar la cuenta de gestión de la newsletter para que sea operativa.
 - [x] **Preparación Producción**: Sustituir emails personales por corporativos oficiales en el entorno de despliegue.
+
+## 🔧 Fase 6: Post-Lanzamiento & Mejoras Continuas
+- [ ] **Animación Foto Desarrollador en Móvil**: Revisar y pulir el despliegue de la foto sobre el bloque de código en el Hero para que en dispositivos móviles se sienta tan fluido como en desktop. Contexto: actualmente se anima `height` (reflow costoso) + `<Image fill>` (re-layout por frame); se mitigó con contenedor interno de altura fija, `contain: layout paint` y eliminación de la sombra, pero aún puede quedar pequeño saltito en gamas bajas. Explorar alternativa con `transform` puro (scaleY con `transform-origin: top` o traslación con clip) o animación por `grid-template-rows` para evitar por completo el layout trigger.
+- [ ] **Refinamiento del Chatbot (AndyAI)**: Mejorar el System Prompt para que, ante preguntas irrelevantes o fuera de contexto (temas que no tengan que ver con Andy, su carrera o proyectos), responda con respeto indicando que su propósito es exclusivamente asistir en temas relacionados con el perfil profesional de Andy.

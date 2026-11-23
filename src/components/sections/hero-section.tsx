@@ -1,12 +1,10 @@
-"use client";
-
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, Terminal, Github, Mail, Linkedin, ChevronUp, ChevronDown, User } from "lucide-react";
-import Image from "next/image";
+import { ChevronRight, Terminal, Mail, ChevronUp, ChevronDown, User } from "lucide-react";
+import { Github, Linkedin } from "@/components/icons/brand-icons";
 
-export function Hero() {
-  const [photo_visible, set_photo_visible] = useState(false);
+export function HeroSection() {
+  const [photoVisible, setPhotoVisible] = useState(false);
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Background Glow Effects */}
@@ -85,7 +83,7 @@ export function Hero() {
           >
             {/* Photo — slides in above the code block */}
             <AnimatePresence>
-              {photo_visible && (
+              {photoVisible && (
                 <motion.div
                   key="photo"
                   initial={{ height: 0, opacity: 0 }}
@@ -97,13 +95,10 @@ export function Hero() {
                 >
                   {/* Contenedor interno de altura fija: la imagen no recalcula layout en cada frame */}
                   <div className="absolute inset-x-0 top-0 h-[320px]">
-                    <Image
+                    <img
                       src="/profile_ultimate.png"
                       alt="Andy Gomez"
-                      fill
-                      priority
-                      sizes="(max-width: 1024px) 100vw, 512px"
-                      className="object-cover"
+                      className="absolute inset-0 h-full w-full object-cover"
                     />
                     {/* Degradado inferior para fundir con el bloque de código */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
@@ -114,13 +109,13 @@ export function Hero() {
 
             {/* Code block */}
             <div
-              className={`relative z-20 rounded-2xl overflow-hidden border border-white/10 bg-black/70 backdrop-blur-2xl shadow-2xl ${photo_visible ? "rounded-t-none border-t-0" : ""}`}
+              className={`relative z-20 rounded-2xl overflow-hidden border border-white/10 bg-black/70 backdrop-blur-2xl shadow-2xl ${photoVisible ? "rounded-t-none border-t-0" : ""}`}
             >
               {/* Title bar — clickable */}
               <button
-                onClick={() => set_photo_visible((v) => !v)}
+                onClick={() => setPhotoVisible((v) => !v)}
                 className="w-full flex items-center justify-between px-4 py-3 border-b border-white/5 bg-white/5 hover:bg-white/10 transition-colors group cursor-pointer"
-                title={photo_visible ? "Ocultar foto" : "Ver al desarrollador"}
+                title={photoVisible ? "Ocultar foto" : "Ver al desarrollador"}
               >
                 <div className="flex items-center gap-3">
                   <div className="flex gap-2">
@@ -132,7 +127,7 @@ export function Hero() {
                 </div>
                 <div className="flex items-center gap-1.5 text-[10px] font-mono text-neutral-500 group-hover:text-cyan-400 transition-colors">
                   <User className="w-3 h-3" />
-                  {photo_visible ? (
+                  {photoVisible ? (
                     <><ChevronUp className="w-3 h-3" /> ocultar</>
                   ) : (
                     <><ChevronDown className="w-3 h-3" /> ver desarrollador</>

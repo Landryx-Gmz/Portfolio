@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquare, X, Send, Terminal } from "lucide-react";
@@ -33,9 +31,9 @@ export function Chatbot() {
   }, [messages, scrollToBottom]);
 
   useEffect(() => {
-    const handle_open = () => setIsOpen(true);
-    window.addEventListener("open-chatbot", handle_open);
-    return () => window.removeEventListener("open-chatbot", handle_open);
+    const handleOpen = () => setIsOpen(true);
+    window.addEventListener("open-chatbot", handleOpen);
+    return () => window.removeEventListener("open-chatbot", handleOpen);
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -54,7 +52,7 @@ export function Chatbot() {
     setIsLoading(true);
 
     // Preparar historial para la API (sin el mensaje de bienvenida estático)
-    const api_messages = [...messages.filter((m) => m.id !== "welcome"), userMessage].map(
+    const apiMessages = [...messages.filter((m) => m.id !== "welcome"), userMessage].map(
       (m) => ({ role: m.role, content: m.content })
     );
 
@@ -62,7 +60,7 @@ export function Chatbot() {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: api_messages }),
+        body: JSON.stringify({ messages: apiMessages }),
       });
 
       if (!response.ok) {

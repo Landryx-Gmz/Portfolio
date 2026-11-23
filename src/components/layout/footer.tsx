@@ -1,7 +1,5 @@
-"use client";
-
-import { Github, Linkedin, Mail, Terminal } from "lucide-react";
-import Link from "next/link";
+import { Mail, Terminal } from "lucide-react";
+import { Github, Linkedin } from "@/components/icons/brand-icons";
 
 export function Footer() {
   return (
@@ -37,9 +35,9 @@ export function Footer() {
               <span className="text-cyan-400">{'>'}</span> Ecosistema
             </h4>
             <ul className="space-y-3">
-              <li><button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-sm text-neutral-500 dark:text-neutral-400 hover:text-blue-500 dark:hover:text-cyan-400 transition-colors inline-flex items-center gap-1 group cursor-pointer"><Terminal className="w-3 h-3 group-hover:text-cyan-400" /> Inicio</button></li>
-              <li><Link href="#skills" className="text-sm text-neutral-500 dark:text-neutral-400 hover:text-blue-500 dark:hover:text-cyan-400 transition-colors inline-flex items-center gap-1 group"><Terminal className="w-3 h-3 group-hover:text-cyan-400" /> Stack Tecnológico</Link></li>
-              <li><Link href="#projects" className="text-sm text-neutral-500 dark:text-neutral-400 hover:text-blue-500 dark:hover:text-cyan-400 transition-colors inline-flex items-center gap-1 group"><Terminal className="w-3 h-3 group-hover:text-cyan-400" /> Proyectos</Link></li>
+              <li><a href="#top" className="text-sm text-neutral-500 dark:text-neutral-400 hover:text-blue-500 dark:hover:text-cyan-400 transition-colors inline-flex items-center gap-1 group cursor-pointer"><Terminal className="w-3 h-3 group-hover:text-cyan-400" /> Inicio</a></li>
+              <li><a href="#skills" className="text-sm text-neutral-500 dark:text-neutral-400 hover:text-blue-500 dark:hover:text-cyan-400 transition-colors inline-flex items-center gap-1 group"><Terminal className="w-3 h-3 group-hover:text-cyan-400" /> Stack Tecnológico</a></li>
+              <li><a href="#projects" className="text-sm text-neutral-500 dark:text-neutral-400 hover:text-blue-500 dark:hover:text-cyan-400 transition-colors inline-flex items-center gap-1 group"><Terminal className="w-3 h-3 group-hover:text-cyan-400" /> Proyectos</a></li>
             </ul>
           </div>
 
