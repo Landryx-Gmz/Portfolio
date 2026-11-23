@@ -6,16 +6,10 @@ interface Project {
   problem: string;
   work: string[];
   result: string;
+  // Captura 16:10 en public/projects/<image>-<ancho>.webp, generada en varios anchos.
   image: string;
+  imageWidths: number[];
   imageAlt: string;
-  imageWidth: number;
-  imageHeight: number;
-  objectPosition: string;
-  // "contain" muestra la captura entera en escritorio (capturas verticales); en móvil se
-  // recorta según objectPosition. Por defecto se recorta siempre.
-  imageFit?: "cover" | "contain";
-  // Color de las franjas laterales cuando la captura se muestra entera (el fondo de la propia web).
-  imageBg?: string;
   tags: string[];
   live?: string;
 }
@@ -33,11 +27,9 @@ const PROJECTS: Project[] = [
       "Automatización con n8n: cada formulario se guarda y avisa sin intervención.",
     ],
     result: "Más de 400 contactos en las primeras semanas tras el lanzamiento.",
-    image: "/projects/lidia.png",
+    image: "lidia",
+    imageWidths: [640, 960, 1024],
     imageAlt: "Captura de la web de Mentoría Sana",
-    imageWidth: 1024,
-    imageHeight: 1024,
-    objectPosition: "object-top",
     tags: ["Next.js", "Cloudflare", "n8n", "Formspark"],
     live: "https://lidiaperezperez.com/",
   },
@@ -53,13 +45,9 @@ const PROJECTS: Project[] = [
       "Preparada para crecer: la misma API tendrá las rutas del futuro panel de gestión de clientes.",
     ],
     result: "En producción desde noviembre de 2026, con la web y la API publicadas en el dominio de la agencia.",
-    image: "/projects/jadixtech.webp",
-    imageAlt: "Portada de JadixTech con un colibrí en 3D",
-    imageWidth: 1055,
-    imageHeight: 1726,
-    objectPosition: "object-top",
-    imageFit: "contain",
-    imageBg: "bg-[#020817]",
+    image: "jadixtech",
+    imageWidths: [640, 960, 1280, 1440],
+    imageAlt: "Captura de la web de JadixTech",
     tags: ["Astro", "React Three Fiber", "TypeScript", "Hono", "Zod", "PostgreSQL", "Cloudflare Workers"],
     live: "https://jadixtech.com/",
   },
@@ -74,38 +62,55 @@ const PROJECTS: Project[] = [
       "Cada botón abre WhatsApp con un mensaje ya escrito según el servicio.",
     ],
     result: "Publicada en su dominio: el cliente recibe cada contacto sabiendo ya qué servicio le interesa.",
-    image: "/projects/dagavision.webp",
-    imageAlt: "Portada de DagaVision con un planeta en 3D",
-    imageWidth: 1055,
-    imageHeight: 1650,
-    objectPosition: "object-top",
-    imageFit: "contain",
-    imageBg: "bg-[#06070a]",
+    image: "dagavision",
+    imageWidths: [640, 960, 1280, 1440],
+    imageAlt: "Captura de la web de DagaVision",
     tags: ["Astro", "React Three Fiber", "Three.js", "TypeScript", "Tailwind CSS"],
     live: "https://dagavision.com/",
   },
 ];
 
-function ProjectCard({ project }: { project: Project }) {
+// Escritorio: la captura ocupa algo menos de la mitad de la tarjeta. Móvil y tablet: ancho completo.
+const IMAGE_SIZES = "(min-width: 1280px) 600px, (min-width: 1024px) 45vw, calc(100vw - 4.5rem)";
+
+// Captura enmarcada como una ventana de navegador sencilla (barra fina con tres círculos).
+function ProjectScreenshot({ project }: { project: Project }) {
+  const widths = project.imageWidths;
+  const largest = widths[widths.length - 1]!;
+  const src = (w: number) => `/projects/${project.image}-${w}.webp`;
+
   return (
-    <article className="flex flex-col lg:flex-row rounded-3xl overflow-hidden border border-neutral-200 dark:border-white/10 bg-white/40 dark:bg-black/40 backdrop-blur-xl shadow-lg transition-shadow hover:shadow-[0_0_40px_-10px_rgba(59,130,246,0.25)]">
-      <div
-        className={`relative lg:w-1/2 h-64 lg:h-auto lg:min-h-[380px] overflow-hidden ${
-          project.imageBg ?? "bg-neutral-100 dark:bg-[#020617]"
-        }`}
-      >
+    <figure className="group/shot w-full overflow-hidden rounded-xl border border-neutral-200 dark:border-white/10 bg-neutral-100 dark:bg-neutral-900 shadow-lg">
+      <div className="flex items-center gap-1.5 h-6 sm:h-7 px-3 border-b border-neutral-200 dark:border-white/10" aria-hidden="true">
+        <span className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-neutral-300 dark:bg-neutral-600" />
+        <span className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-neutral-300 dark:bg-neutral-600" />
+        <span className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-neutral-300 dark:bg-neutral-600" />
+      </div>
+      <div className="relative aspect-[16/10] overflow-hidden bg-neutral-200 dark:bg-neutral-950">
         <img
-          src={project.image}
+          src={src(largest)}
+          srcSet={widths.map((w) => `${src(w)} ${w}w`).join(", ")}
+          sizes={IMAGE_SIZES}
           alt={project.imageAlt}
+          width={largest}
+          height={Math.round(largest / 1.6)}
           loading="lazy"
           decoding="async"
-          width={project.imageWidth}
-          height={project.imageHeight}
-          className={`absolute inset-0 h-full w-full object-cover ${project.objectPosition} ${project.imageFit === "contain" ? "lg:object-contain lg:object-center" : ""}`}
+          className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-300 ease-out motion-safe:group-hover/shot:scale-[1.02]"
         />
       </div>
+    </figure>
+  );
+}
 
-      <div className="p-8 flex flex-col lg:w-1/2">
+function ProjectCard({ project }: { project: Project }) {
+  return (
+    <article className="flex flex-col lg:flex-row lg:items-center rounded-3xl overflow-hidden border border-neutral-200 dark:border-white/10 bg-white/40 dark:bg-black/40 backdrop-blur-xl shadow-lg transition-shadow hover:shadow-[0_0_40px_-10px_rgba(59,130,246,0.25)]">
+      <div className="p-5 pb-0 sm:p-6 sm:pb-0 lg:p-8 lg:pr-0 lg:w-1/2">
+        <ProjectScreenshot project={project} />
+      </div>
+
+      <div className="p-5 sm:p-6 lg:p-8 flex flex-col lg:w-1/2">
         <p className="text-xs font-mono font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-3">
           {project.type}
         </p>
