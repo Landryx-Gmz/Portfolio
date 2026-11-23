@@ -8,6 +8,7 @@ interface Certificate {
   title: string;
   issuer: string;
   image: string;
+  description?: string;
   featured?: boolean;
 }
 
@@ -22,20 +23,22 @@ const CERTIFICATIONS: Certificate[] = [
   {
     id: "programador-sistemas",
     title: "Programador de Sistemas Informáticos",
-    issuer: "Formación Oficial",
+    issuer: "Formación",
+    description:
+      "Curso de 510 horas impartido por el centro Formación Universitaria, basado en el certificado de profesionalidad IFCT0609.",
     image: "/certificates/programador-sistemas.png",
-  },
-  {
-    id: "fastapi-udemy",
-    title: "FastAPI + MongoDB + Vercel",
-    issuer: "Udemy",
-    image: "/certificates/fastapi-udemy.png",
   },
   {
     id: "js-mouredev",
     title: "JavaScript desde Cero",
     issuer: "MoureDev Pro",
     image: "/certificates/js-mouredev.png",
+  },
+  {
+    id: "fastapi-udemy",
+    title: "FastAPI + MongoDB + Vercel",
+    issuer: "Udemy",
+    image: "/certificates/fastapi-udemy.png",
   },
   {
     id: "ibm-web",
@@ -208,6 +211,9 @@ export function CertificationsDrawer({ isOpen, onClose }: CertificationsDrawerPr
                       <p className="text-xs font-semibold text-white/80 leading-snug">
                         {cert.title}
                       </p>
+                      {cert.description && (
+                        <p className="text-xs text-neutral-400 leading-snug mt-1.5">{cert.description}</p>
+                      )}
                     </motion.div>
                   ))}
                 </div>
